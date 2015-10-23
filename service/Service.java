@@ -9,11 +9,9 @@ import java.util.List;
 public class Service {
 
     public static void main(String [] args) throws IOException {
-        SearchEngine se = new SearchEngine();
-        Extractor extractor = new Extractor();
+        List<String> urls = SearchEngine.search("doge", 10);
+        List<String> texts = Extractor.extract(urls);
 
-        List<String> urls = se.search("doge", 10);
-        extractor.addUrls(urls);
-        List<String> texts = extractor.getTexts();
+        
     }
 }

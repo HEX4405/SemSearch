@@ -9,28 +9,20 @@ import org.jsoup.nodes.Document;
 
 public class Extractor {
 
-    private List<String> texts;
-
-    public Extractor()
+    private Extractor()
     {
-        texts = new ArrayList<String>();
+
     }
 
-    public void addUrl(String url) throws IOException {
+    public static List<String> extract(List<String> urls) throws IOException {
+        List<String> texts = new ArrayList<>();
+
+        for(String url : urls) {
             Document doc = Jsoup.connect(url).userAgent("Mozilla").get();
             String text = doc.select("p").text();
             texts.add(text);
-    }
-
-    public void addUrls(List<String> urls) throws IOException {
-        for(String url : urls) {
-            this.addUrl(url);
         }
-    }
 
-    public List<String> getTexts()
-    {
         return texts;
     }
-
 }

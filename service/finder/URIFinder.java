@@ -18,7 +18,7 @@ public class URIFinder {
         List<String> uris = new ArrayList<>();
 
         try {
-            Document doc = Jsoup.connect("http://spotlight.sztaki.hu:2222/rest/annotate")
+            Document doc = Jsoup.connect("http://spotlight.dbpedia.org/rest/annotate")
                     .header("content-type", "application/x-www-form-urlencoded")
                     .data("confidence", "0.2")
                     .data("support", "0")

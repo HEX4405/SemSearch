@@ -6,13 +6,10 @@ import service.search.SearchEngine;
 import java.util.List;
 
 public class Service {
-    /*
-    TODO : - using google, bing, yahoo
-           - choose language
-    */
+
     public static void main(String [] args) {
         System.out.println("Searching...");
-        List<String> urls = SearchEngine.search("obama", 10);
+        List<String> urls = SearchEngine.search(SearchEngine.Engine.YAHOO, "obama", 20);
         System.out.println("Extracting...");
         List<String> texts = Extractor.extract(urls);
         System.out.println("Finding URI...");

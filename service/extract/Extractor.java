@@ -22,6 +22,7 @@ public class Extractor {
             try {
                 Document doc = Jsoup.connect(url)
                         .userAgent("Mozilla")
+                        .followRedirects(true)
                         .timeout(0)
                         .get();
 

@@ -28,7 +28,7 @@ public class Extractor {
                 String text = doc.select("p").text();
                 texts.add(text);
             } catch(IOException e) {
-                System.err.println(e.getMessage());
+                System.err.println("[EXTRACTOR] " + e.getMessage());
             }
         }
 

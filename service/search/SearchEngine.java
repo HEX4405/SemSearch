@@ -32,7 +32,7 @@ public class SearchEngine {
                 urls.add(url);
             }
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            System.err.println("[SEARCHENGINE] " + e.getMessage());
         }
         return urls;
     }

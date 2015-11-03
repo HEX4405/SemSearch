@@ -1,4 +1,4 @@
-package sparqlMaker;
+package service.sparql;
 
 import java.io.File;
 import java.io.FileReader;

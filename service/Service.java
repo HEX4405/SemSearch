@@ -1,9 +1,11 @@
 package service;
 
+import org.apache.jena.rdf.model.Model;
 import service.extract.Extractor;
 import service.finder.URIFinder;
 import service.frequency.FrequencySorter;
 import service.search.SearchEngine;
+import service.sparql.RDFGraphGenerator;
 
 import java.util.*;
 
@@ -18,6 +20,7 @@ public class Service {
         List<List<String>> urisList = URIFinder.find(texts, 0.5);
         System.out.println("Done.");
         List<List<String>> sortedUrisList = FrequencySorter.processAll(urisList, 1);
+        List<List<Model>> modelsList = RDFGraphGenerator.generateRDFAll(sortedUrisList);
     }
 }
 

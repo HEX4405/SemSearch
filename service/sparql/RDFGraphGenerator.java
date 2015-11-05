@@ -65,4 +65,14 @@ public class RDFGraphGenerator {
 		}
 		return models;
 	}
+
+	public static List<List<Model>> generateRDFAll(List<List<String>> urisList) {
+		List<List<Model>> modelsList = new ArrayList<>();
+
+		for(List<String> uris : urisList) {
+			modelsList.add(generateRDF(uris));
+		}
+
+		return modelsList;
+	}
 }

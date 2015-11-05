@@ -19,7 +19,7 @@ public class Service {
         System.out.println("Done.");
 
         for(List<String> uris : urisLists) {
-           List<String> sortedUris = FrequencySorter.process(uris);
+           List<String> sortedUris = FrequencySorter.process(uris, 1);
            for(String uri : sortedUris) {
                System.out.println(uri);
            }

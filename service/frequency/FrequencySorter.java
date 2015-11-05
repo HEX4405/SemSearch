@@ -9,8 +9,7 @@ public class FrequencySorter {
 
     }
 
-    // TODO: seuil en dessous duquel le resultat n'est pas ajoute
-    public static List<String> process(List<String> uris) {
+    public static List<String> process(List<String> uris, int min) {
         Map<String, Integer> frequencies = new HashMap<>();
         for(String uri : uris) {
             if(frequencies.containsKey(uri)) {
@@ -32,7 +31,10 @@ public class FrequencySorter {
         List<String> sortedUris = new LinkedList<>();
         for (Iterator<Map.Entry<String, Integer>> it = sortedFrequencies.iterator(); it.hasNext();) {
             Map.Entry<String, Integer> entry = it.next();
-            sortedUris.add(entry.getKey());
+            if(entry.getValue() >= min) {
+                sortedUris.add(entry.getKey());
+            }
+
         }
 
         return sortedUris;

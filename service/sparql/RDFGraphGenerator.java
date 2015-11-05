@@ -14,13 +14,14 @@ import org.apache.jena.query.*;
 
 public class RDFGraphGenerator {
 
-	public RDFGraphGenerator() {
+	private RDFGraphGenerator() {
 
 	}
+
 	/**
 	 * 
 	 * @param uris Liste d'uris dont on veut le graphe
-	 * @return models. Une liste de graphes rdf contenant tout ce qui est associé à l'URI correspondante
+	 * @return models. Une liste de graphes rdf contenant tout ce qui est associï¿½ ï¿½ l'URI correspondante
 	 */
 	public static List<Model> generateRDF(List<String> uris) {
 		
@@ -30,13 +31,14 @@ public class RDFGraphGenerator {
 		for (String uri : uris) {
 			m = ModelFactory.createDefaultModel();
 			m.createResource(uri);
-			//Requête permettant de récupérer tous les prédicats et objets dont l'URI donnée est le sujet
+
+			//RequÃªte permettant de rÃ©cupÃ©rer tous les prÃ©dicats et objets dont l'URI donnÃ©e est le sujet
 			String queryString = "select distinct ?property ?value from <http://dbpedia.org>" + "where { " + "<" + uri + "> ?property ?value }";
 			Query query = QueryFactory.create(queryString);
 			QueryExecution qexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
 			try {
 				ResultSet results = qexec.execSelect();
-				for (; results.hasNext();) {
+				while(results.hasNext()) {
 					QuerySolution sol = results.nextSolution();
 					m.getResource(uri).addProperty(m.createProperty(sol.getResource("property").toString()), sol.get("value"));
 				}
@@ -44,7 +46,7 @@ public class RDFGraphGenerator {
 				qexec.close();
 			}
 			
-			//Requête permettant de récupérer tous les sujet et prédicats dont l'URI donnée et l'objet
+			//RequÃªte permettant de rÃ©cupÃ©rer tous les sujet et prÃ©dicats dont l'URI donnÃ©e et l'objet
 			queryString = "select distinct ?resource ?property from <http://dbpedia.org>" + "where { ?resource ?property " + "<" + uri + "> }";
 			query = QueryFactory.create(queryString);
 			qexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
@@ -58,15 +60,9 @@ public class RDFGraphGenerator {
 			} finally {
 				qexec.close();
 			}
-			
 
 			models.add(m);
-
 		}
-
 		return models;
 	}
-
-	
-
 }

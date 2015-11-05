@@ -37,12 +37,12 @@ public class URIFinder {
     }
 
     public static List<List<String>> find(List<String> texts, double confidence) {
-        List<List<String>> urisLists = new ArrayList<>();
+        List<List<String>> urisList = new ArrayList<>();
 
         for(String text : texts) {
-            urisLists.add(find(text, confidence));
+            urisList.add(find(text, confidence));
         }
 
-        return urisLists;
+        return urisList;
     }
 }

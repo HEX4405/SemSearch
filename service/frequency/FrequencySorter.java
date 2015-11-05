@@ -39,4 +39,14 @@ public class FrequencySorter {
 
         return sortedUris;
     }
+
+    public static List<List<String>> processAll(List<List<String>> urisList, int min) {
+        List<List<String>> sortedUrisList = new ArrayList<>();
+
+        for(List<String> uris : urisList) {
+            sortedUrisList.add(process(uris, min));
+        }
+
+        return sortedUrisList;
+    }
 }

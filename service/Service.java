@@ -15,16 +15,9 @@ public class Service {
         System.out.println("Extracting...");
         List<String> texts = Extractor.extract(urls);
         System.out.println("Finding URI...");
-        List<List<String>> urisLists = URIFinder.find(texts, 0.5);
+        List<List<String>> urisList = URIFinder.find(texts, 0.5);
         System.out.println("Done.");
-
-        for(List<String> uris : urisLists) {
-           List<String> sortedUris = FrequencySorter.process(uris, 1);
-           for(String uri : sortedUris) {
-               System.out.println(uri);
-           }
-           System.out.println("===========");
-        }
+        List<List<String>> sortedUrisList = FrequencySorter.processAll(urisList, 1);
     }
 }
 

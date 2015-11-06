@@ -15,6 +15,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modele.Snippet;
 import static service.Service.identifyConcepts;
+import javax.swing.JLabel;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.GroupLayout;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 /**
  *
@@ -83,6 +89,11 @@ public class SearchApp extends javax.swing.JFrame {
         txtSearchField = new javax.swing.JTextField();
         btnGO = new javax.swing.JButton();
         sldSimilarite = new javax.swing.JSlider();
+        sldSimilarite.addChangeListener(new ChangeListener() {
+        	public void stateChanged(ChangeEvent evt) {
+        		label3.setText(String.format("%.2f", (double)sldSimilarite.getValue()/100.0d));
+        	}
+        });
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -314,59 +325,65 @@ public class SearchApp extends javax.swing.JFrame {
 
         cmbBoxNumber.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", " " }));
         cmbBoxNumber.setEnabled(false);
+        
+        label3 = new JLabel("0.50");
 
         javax.swing.GroupLayout panelOptionsLayout = new javax.swing.GroupLayout(panelOptions);
-        panelOptions.setLayout(panelOptionsLayout);
         panelOptionsLayout.setHorizontalGroup(
-            panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelOptionsLayout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addComponent(radioGoogle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(radioYahoo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(radioBing)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbBoxNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sldSimilarite, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOptionsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnGO, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(254, 254, 254))
+        	panelOptionsLayout.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(panelOptionsLayout.createSequentialGroup()
+        			.addGap(86)
+        			.addComponent(radioGoogle)
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addComponent(radioYahoo)
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addComponent(radioBing)
+        			.addPreferredGap(ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+        			.addComponent(jLabel6, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(cmbBoxNumber, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+        			.addGap(78)
+        			.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(sldSimilarite, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+        			.addGap(6)
+        			.addComponent(label3)
+        			.addContainerGap())
+        		.addGroup(panelOptionsLayout.createSequentialGroup()
+        			.addContainerGap(347, Short.MAX_VALUE)
+        			.addComponent(txtSearchField, GroupLayout.PREFERRED_SIZE, 373, GroupLayout.PREFERRED_SIZE)
+        			.addGap(18)
+        			.addComponent(btnGO, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
+        			.addGap(254))
         );
         panelOptionsLayout.setVerticalGroup(
-            panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelOptionsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtSearchField)
-                    .addComponent(btnGO, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(sldSimilarite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(radioGoogle)
-                        .addComponent(radioYahoo)
-                        .addComponent(radioBing)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbBoxNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        	panelOptionsLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(panelOptionsLayout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(panelOptionsLayout.createParallelGroup(Alignment.LEADING, false)
+        				.addComponent(txtSearchField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(btnGO, GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addGroup(panelOptionsLayout.createParallelGroup(Alignment.TRAILING, false)
+        				.addComponent(sldSimilarite, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addGroup(panelOptionsLayout.createParallelGroup(Alignment.BASELINE)
+        					.addComponent(jLabel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addComponent(label3))
+        				.addGroup(panelOptionsLayout.createParallelGroup(Alignment.BASELINE)
+        					.addComponent(jLabel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+        					.addComponent(radioGoogle)
+        					.addComponent(radioYahoo)
+        					.addComponent(radioBing)
+        					.addComponent(jLabel6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addComponent(cmbBoxNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        panelOptions.setLayout(panelOptionsLayout);
 
         panelResults.setBackground(new java.awt.Color(247, 247, 247));
         panelResults.setOpaque(false);
@@ -2138,7 +2155,7 @@ public class SearchApp extends javax.swing.JFrame {
         double seuil = sldSimilarite.getValue()/100.0;
         
         
-        //List<Snippet> snippets = identifyConcepts(query, searchEngine, 5, seuil);
+        List<Snippet> snippets = identifyConcepts(query, searchEngine, 5, seuil);
         
         pannelMainConcept1.setVisible(true);
         pannelMainConcept2.setVisible(true);
@@ -2621,5 +2638,6 @@ public class SearchApp extends javax.swing.JFrame {
     private javax.swing.JTextArea txtSnipetText3;
     private javax.swing.JTextArea txtSnipetText4;
     private javax.swing.JTextArea txtSnipetText5;
+    private JLabel label3;
     // End of variables declaration//GEN-END:variables
 }

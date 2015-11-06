@@ -107,6 +107,10 @@
                   <Image iconType="2" name="C:\Users\Cyril\Documents\GitHub\4IF\TurboMegaSearch.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="titleOvered"/>
+                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="titleExited"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="panelOptions">
               <Properties>
@@ -188,6 +192,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="searchBarClicked"/>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="saisieVolGo"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnGO">
@@ -3130,6 +3135,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pannelMainConcept2Clicked"/>
+                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mainConceptOvered"/>
                   </Events>
 
                   <Layout>
@@ -3208,6 +3214,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pannelMainConcept3Clicked"/>
+                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mainConceptOvered"/>
                   </Events>
 
                   <Layout>
@@ -3286,6 +3293,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pannelMainConcept4Clicked"/>
+                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mainConceptOvered"/>
                   </Events>
 
                   <Layout>
@@ -3365,6 +3373,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pannelMainConcept5Clicked"/>
+                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mainConceptOvered"/>
                   </Events>
 
                   <Layout>

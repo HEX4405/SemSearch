@@ -9,6 +9,8 @@ import java.awt.Cursor;
 import java.util.Enumeration;
 import java.util.List;
 import javax.swing.AbstractButton;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -21,6 +23,9 @@ public class SearchApp extends javax.swing.JFrame {
      */
     public SearchApp() {
         initComponents();
+        setLocation(200, 150);
+        btnGO.requestFocus();
+        panelResults.setVisible(false);
     }
 
     /**
@@ -196,6 +201,14 @@ public class SearchApp extends javax.swing.JFrame {
 
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setIcon(new javax.swing.ImageIcon("C:\\Users\\Cyril\\Documents\\GitHub\\4IF\\TurboMegaSearch.png")); // NOI18N
+        lblTitle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                titleOvered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                titleExited(evt);
+            }
+        });
 
         panelOptions.setBackground(new java.awt.Color(247, 247, 247));
 
@@ -205,6 +218,11 @@ public class SearchApp extends javax.swing.JFrame {
         txtSearchField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 searchBarClicked(evt);
+            }
+        });
+        txtSearchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                saisieVolGo(evt);
             }
         });
 
@@ -1783,6 +1801,9 @@ public class SearchApp extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pannelMainConcept2Clicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mainConceptOvered(evt);
+            }
         });
 
         titleMainConcept2.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -1819,6 +1840,9 @@ public class SearchApp extends javax.swing.JFrame {
         pannelMainConcept3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pannelMainConcept3Clicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mainConceptOvered(evt);
             }
         });
 
@@ -1857,6 +1881,9 @@ public class SearchApp extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pannelMainConcept4Clicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mainConceptOvered(evt);
+            }
         });
 
         titleMainConcept4.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -1894,6 +1921,9 @@ public class SearchApp extends javax.swing.JFrame {
         pannelMainConcept5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pannelMainConcept5Clicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mainConceptOvered(evt);
             }
         });
 
@@ -2060,17 +2090,29 @@ public class SearchApp extends javax.swing.JFrame {
     private void btnGoClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGoClicked
         // TODO add your handling code here:
         String query = txtSearchField.getText();
-        String searchEngine = "";
-        for (Enumeration<AbstractButton> buttons = buttonGroup1.getElements(); buttons.hasMoreElements();) {
-            AbstractButton button = buttons.nextElement();
-
-            if (button.isSelected()) {
-                searchEngine = button.getText();
-            }
-        }
-        double seuil = sldSimilarite.getValue()/100.0;
         
-        System.out.println("GO : " + query + " " + searchEngine + " " + seuil);
+        if(query.equals("MagicFernandez"))
+        {
+            lblTitle.setIcon(new ImageIcon("C:/Users/Cyril/Pictures/Fernandez.jpg"));
+        }
+        else 
+        {
+            String searchEngine = "";
+            for (Enumeration<AbstractButton> buttons = buttonGroup1.getElements(); buttons.hasMoreElements();) {
+                AbstractButton button = buttons.nextElement();
+
+                if (button.isSelected()) {
+                    searchEngine = button.getText();
+                }
+            }
+            double seuil = sldSimilarite.getValue()/100.0;
+
+            System.out.println("GO : " + query + " " + searchEngine + " " + seuil);
+
+            panelResults.setVisible(true);
+        }
+        
+        
     }//GEN-LAST:event_btnGoClicked
 
     private void panelConcept21conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept21conceptClicked
@@ -2249,6 +2291,20 @@ public class SearchApp extends javax.swing.JFrame {
         evt.getComponent().setCursor(new Cursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_mainConceptOvered
 
+    private void titleOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titleOvered
+        lblTitle.setIcon(new ImageIcon("C:/Users/Cyril/Documents/GitHub/4IF/TurboMegaSearchOvered.png"));
+    }//GEN-LAST:event_titleOvered
+
+    private void titleExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titleExited
+        lblTitle.setIcon(new ImageIcon("C:/Users/Cyril/Documents/GitHub/4IF/TurboMegaSearch.png"));
+    }//GEN-LAST:event_titleExited
+
+    private void saisieVolGo(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_saisieVolGo
+        if(evt.getKeyChar() == '\n') {
+            btnGoClicked(null);
+        }
+    }//GEN-LAST:event_saisieVolGo
+
     /**
      * @param args the command line arguments
      */
@@ -2277,10 +2333,13 @@ public class SearchApp extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new SearchApp().setVisible(true);
+                
+                
             }
         });
     }

@@ -11,6 +11,8 @@ import service.sparql.RDFGraphGenerator;
 
 import java.util.*;
 
+import org.apache.jena.rdf.model.Model;
+
 public class Service {
 
     public static void main(String [] args) {

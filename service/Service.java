@@ -14,7 +14,6 @@ import org.apache.jena.rdf.model.Model;
 
 public class Service {
 
-    
 
     public static List<Snippet> identifyConcepts(String query, String searchEngine, int numberOfResults, double similarity) {
         List<String> urls = null;

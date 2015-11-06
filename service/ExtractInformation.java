@@ -16,23 +16,36 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.sparql.vocabulary.FOAF;
 import org.apache.jena.vocabulary.RDFS;
 
+import modele.Concept;
+
 public class ExtractInformation {
 	
 	private ExtractInformation(){
 		
 	}
 	
-	public static void extractInformations(Model m, String mainUri){
+	public static List<Concept> extractInformations(Model m, String mainUri){
+		List<Concept> result = new ArrayList<Concept>();
+		
 		
 		String mainTitle = ExtractInformation.getLabel(m, mainUri);
 		String mainText = ExtractInformation.getComment(m, mainUri);
 		
+		Concept concept = new Concept(mainTitle,mainText);
+		result.add(concept);
+		
 		List<String> listUrisAssocies = new ArrayList<String>();
+		listUrisAssocies = ExtractInformation.getAssociatedURI(m, mainUri);
 		
 		for(String s : listUrisAssocies){
+			
 			String title = ExtractInformation.getLabel(m,s);
 			String text = ExtractInformation.getComment(m,s);
+			
+			Concept temp = new Concept(title,text);
+			result.add(temp);
 		}
+		return result;
 		
 	}
 	

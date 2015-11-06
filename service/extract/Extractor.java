@@ -3,8 +3,6 @@ package service.extract;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.ZipException;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -27,7 +25,9 @@ public class Extractor {
                         .get();
 
                 String text = doc.select("p").text();
-                texts.add(text);
+                if(!text.isEmpty()) {
+                    texts.add(text);
+                }
             } catch(IOException e) {
                 System.err.println("[EXTRACTOR] " + e.getMessage());
             }

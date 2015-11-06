@@ -40,6 +40,7 @@ public class URIFinder {
         List<List<String>> urisList = new ArrayList<>();
 
         for(String text : texts) {
+            List<String> uris = find(text, confidence);
             urisList.add(find(text, confidence));
         }
 

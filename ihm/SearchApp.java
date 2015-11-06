@@ -6,12 +6,15 @@
 package ihm;
 
 import java.awt.Cursor;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import modele.Snippet;
+import static service.Service.identifyConcepts;
 
 /**
  *
@@ -26,10 +29,31 @@ public class SearchApp extends javax.swing.JFrame {
         initComponents();
         setLocation(200, 150);
         btnGO.requestFocus();
-        panelResults.setVisible(false);
+        //panelResults.setVisible(false);
+        
+        snippetTexts = new ArrayList<>();
+        snippetTitles = new ArrayList<>();
+        panelSnippets = new ArrayList<>();
+        
+        snippetTexts.add(txtSnipetText1);
+        snippetTexts.add(txtSnipetText2);
+        snippetTexts.add(txtSnipetText3);
+        snippetTexts.add(txtSnipetText4);
+        snippetTexts.add(txtSnipetText5);
+        
+        snippetTitles.add(lblPageTitle1);
+        snippetTitles.add(lblPageTitle2);
+        snippetTitles.add(lblPageTitle3);
+        snippetTitles.add(lblPageTitle4);
+        snippetTitles.add(lblPageTitle5);
+        
+        panelSnippets.add(panelSnipet1);
+        panelSnippets.add(panelSnipet2);
+        panelSnippets.add(panelSnipet3);
+        panelSnippets.add(panelSnipet4);
+        panelSnippets.add(panelSnipet5);
         
         pannelMainConcept1.setVisible(false);
-        /*
         pannelMainConcept2.setVisible(false);
         pannelMainConcept3.setVisible(false);
         pannelMainConcept4.setVisible(false);
@@ -40,7 +64,6 @@ public class SearchApp extends javax.swing.JFrame {
         panelSnipet3.setVisible(false);
         panelSnipet4.setVisible(false);
         panelSnipet5.setVisible(false);
-        */
     }
 
     /**
@@ -2084,13 +2107,11 @@ public class SearchApp extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panelConcept14conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept14conceptClicked
-        new ConceptWindow(evt.getComponent().getName());
-        /*
-        System.out.println("concept " + evt.getComponent().getName() + "  clicked");
+
+        String title = null;
+        String texte = null;
         
-        System.out.println("concept " + evt.getComponent().getHeight() + "  clicked");
-        System.out.println("concept " + evt.getComponent().getWidth() + "  clicked");
-        */
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept14conceptClicked
 
     private void conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_conceptOvered
@@ -2106,7 +2127,6 @@ public class SearchApp extends javax.swing.JFrame {
     private void btnGoClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGoClicked
         String query = txtSearchField.getText();
         
-
         String searchEngine = "";
         for (Enumeration<AbstractButton> buttons = buttonGroup1.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
@@ -2116,26 +2136,28 @@ public class SearchApp extends javax.swing.JFrame {
             }
         }
         double seuil = sldSimilarite.getValue()/100.0;
-
-        //System.out.println("GO : " + query + " " + searchEngine + " " + seuil);
-
+        
+        
+        //List<Snippet> snippets = identifyConcepts(query, searchEngine, 5, seuil);
+        
         pannelMainConcept1.setVisible(true);
-        /*
         pannelMainConcept2.setVisible(true);
         pannelMainConcept3.setVisible(true);
         pannelMainConcept4.setVisible(true);
-        pannelMainConcept5.setVisible(true);
+        //pannelMainConcept5.setVisible(true);
         
-        panelSnipet1.setVisible(true);
-        panelSnipet2.setVisible(true);
-        panelSnipet3.setVisible(true);
-        panelSnipet4.setVisible(true);
-        panelSnipet5.setVisible(true);
-        */
+        
+        for(int i=0; i<snippets.size(); i++) {
+            panelSnippets.get(i).setVisible(true);
+            snippetTitles.get(i).setText(snippets.get(i).getTitle());
+        }
     }//GEN-LAST:event_btnGoClicked
 
     private void panelConcept21conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept21conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept21conceptClicked
 
     private void panelConcept21conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept21conceptOvered
@@ -2143,7 +2165,10 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_panelConcept21conceptOvered
 
     private void panelConcept22conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept22conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept22conceptClicked
 
     private void panelConcept22conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept22conceptOvered
@@ -2151,7 +2176,10 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_panelConcept22conceptOvered
 
     private void panelConcept23conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept23conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept23conceptClicked
 
     private void panelConcept23conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept23conceptOvered
@@ -2159,7 +2187,10 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_panelConcept23conceptOvered
 
     private void panelConcept24conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept24conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept24conceptClicked
 
     private void panelConcept24conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept24conceptOvered
@@ -2167,7 +2198,10 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_panelConcept24conceptOvered
 
     private void panelConcep31conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcep31conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcep31conceptClicked
 
     private void panelConcep31conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcep31conceptOvered
@@ -2175,7 +2209,10 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_panelConcep31conceptOvered
 
     private void panelConcept32conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept32conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept32conceptClicked
 
     private void panelConcept32conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept32conceptOvered
@@ -2183,7 +2220,10 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_panelConcept32conceptOvered
 
     private void panelConcept33conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept33conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept33conceptClicked
 
     private void panelConcept33conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept33conceptOvered
@@ -2191,7 +2231,10 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_panelConcept33conceptOvered
 
     private void panelConcept34conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept34conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept34conceptClicked
 
     private void panelConcept34conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept34conceptOvered
@@ -2199,7 +2242,10 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_panelConcept34conceptOvered
 
     private void panelConcept41conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept41conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept41conceptClicked
 
     private void panelConcept41conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept41conceptOvered
@@ -2207,7 +2253,10 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_panelConcept41conceptOvered
 
     private void panelConcept42conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept42conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept42conceptClicked
 
     private void panelConcept42conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept42conceptOvered
@@ -2215,7 +2264,10 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_panelConcept42conceptOvered
 
     private void panelConcept43conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept43conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept43conceptClicked
 
     private void panelConcept43conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept43conceptOvered
@@ -2223,7 +2275,10 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_panelConcept43conceptOvered
 
     private void panelConcept44conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept44conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept44conceptClicked
 
     private void panelConcept44conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept44conceptOvered
@@ -2231,7 +2286,10 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_panelConcept44conceptOvered
 
     private void panelConcept51conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept51conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept51conceptClicked
 
     private void panelConcept51conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept51conceptOvered
@@ -2239,7 +2297,10 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_panelConcept51conceptOvered
 
     private void panelConcept52conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept52conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept52conceptClicked
 
     private void panelConcept52conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept52conceptOvered
@@ -2247,7 +2308,10 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_panelConcept52conceptOvered
 
     private void panelConcept53conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept53conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept53conceptClicked
 
     private void panelConcept53conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept53conceptOvered
@@ -2255,7 +2319,10 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_panelConcept53conceptOvered
 
     private void panelConcept54conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept54conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept54conceptClicked
 
     private void panelConcept54conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept54conceptOvered
@@ -2263,23 +2330,38 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_panelConcept54conceptOvered
 
     private void pannelMainConcept1Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pannelMainConcept1Clicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_pannelMainConcept1Clicked
 
     private void pannelMainConcept2Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pannelMainConcept2Clicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_pannelMainConcept2Clicked
 
     private void pannelMainConcept3Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pannelMainConcept3Clicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_pannelMainConcept3Clicked
 
     private void pannelMainConcept4Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pannelMainConcept4Clicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_pannelMainConcept4Clicked
 
     private void pannelMainConcept5Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pannelMainConcept5Clicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_pannelMainConcept5Clicked
 
     private void firstConcept5Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_firstConcept5Clicked
@@ -2325,15 +2407,24 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_saisieVolGo
 
     private void panelConcept11conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept11conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept11conceptClicked
 
     private void panelConcept12conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept12conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept12conceptClicked
 
     private void panelConcept13conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept13conceptClicked
-        // TODO add your handling code here:
+        String title = null;
+        String texte = null;
+        
+        new ConceptWindow(title, texte);
     }//GEN-LAST:event_panelConcept13conceptClicked
 
     /**
@@ -2375,6 +2466,10 @@ public class SearchApp extends javax.swing.JFrame {
         });
     }
 
+    //private List<javax.swing.JLabel> snippetTitles;
+    private List<javax.swing.JTextArea> snippetTexts;
+    private List<javax.swing.JLabel> snippetTitles;
+    private List<javax.swing.JPanel> panelSnippets;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FirstConcept1;
     private javax.swing.JLabel FirstConcept2;

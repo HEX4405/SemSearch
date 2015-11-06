@@ -14,9 +14,12 @@ public class ConceptWindow extends javax.swing.JFrame {
     /**
      * Creates new form ConceptWindow
      */
-    public ConceptWindow() {
+    public ConceptWindow(String title, String text) {
         initComponents();
         setVisible(true);
+        
+        otherFrameText.setText(text);
+        otherFrameTitle.setText(title);
     }
 
     /**
@@ -34,7 +37,7 @@ public class ConceptWindow extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         otherFrameText = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(131, 229, 68), 2));
 

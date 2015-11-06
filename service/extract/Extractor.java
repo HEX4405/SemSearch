@@ -8,8 +8,7 @@ import org.jsoup.nodes.Document;
 
 public class Extractor {
 
-    private Extractor()
-    {
+    private Extractor()     {
 
     }
 

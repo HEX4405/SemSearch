@@ -199,6 +199,7 @@ public class SearchApp extends javax.swing.JFrame {
 
         panelOptions.setBackground(new java.awt.Color(247, 247, 247));
 
+        txtSearchField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         txtSearchField.setForeground(new java.awt.Color(51, 153, 0));
         txtSearchField.setText("Rechercher...");
         txtSearchField.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -293,10 +294,10 @@ public class SearchApp extends javax.swing.JFrame {
         panelOptionsLayout.setVerticalGroup(
             panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOptionsLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGO))
+                .addContainerGap()
+                .addGroup(panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtSearchField)
+                    .addComponent(btnGO, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(sldSimilarite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1742,6 +1743,9 @@ public class SearchApp extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pannelMainConcept1Clicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mainConceptOvered(evt);
+            }
         });
 
         titleMainConcept1.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -1971,7 +1975,7 @@ public class SearchApp extends javax.swing.JFrame {
                 .addComponent(panelSnipet4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelSnipet5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
+                .addContainerGap())
         );
 
         jPanel25.setBackground(new java.awt.Color(247, 247, 247));
@@ -2016,7 +2020,7 @@ public class SearchApp extends javax.swing.JFrame {
                 .addComponent(panelOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelResults, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addContainerGap(362, Short.MAX_VALUE))
         );
 
         jScrollPane5.setViewportView(panelTitle);
@@ -2029,7 +2033,7 @@ public class SearchApp extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1789, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
         );
 
         pack();
@@ -2240,6 +2244,10 @@ public class SearchApp extends javax.swing.JFrame {
     private void firstConceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_firstConceptOvered
         evt.getComponent().setCursor(new Cursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_firstConceptOvered
+
+    private void mainConceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainConceptOvered
+        evt.getComponent().setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_mainConceptOvered
 
     /**
      * @param args the command line arguments

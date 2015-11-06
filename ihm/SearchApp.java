@@ -9,11 +9,23 @@ import java.awt.Cursor;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
+
 import javax.swing.AbstractButton;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
+import org.apache.jena.rdf.model.Model;
+
 import modele.Snippet;
+import service.extract.Extractor;
+import service.finder.URIFinder;
+import service.frequency.FrequencySorter;
+import service.graphUnifier.GraphUnifier;
+import service.search.SearchEngine;
+import service.sparql.RDFGraphGenerator;
+
 import static service.Service.identifyConcepts;
 
 /**
@@ -2125,32 +2137,56 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_searchBarClicked
 
     private void btnGoClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGoClicked
-        String query = txtSearchField.getText();
+    	List<String> urls = null;
+        Map<String, String> textsMap = null;
+        int currentNumberOfResults = 0;
+        int numberOfResults = 5;
         
-        String searchEngine = "";
-        for (Enumeration<AbstractButton> buttons = buttonGroup1.getElements(); buttons.hasMoreElements();) {
-            AbstractButton button = buttons.nextElement();
-
-            if (button.isSelected()) {
-                searchEngine = button.getText();
-            }
+        for(int i = 0; i < 10 && currentNumberOfResults != numberOfResults; i++) {
+            urls = SearchEngine.search("GOOGLE", this.txtSearchField.getText(), numberOfResults);
+            textsMap = Extractor.extract(urls);
+            currentNumberOfResults = textsMap.size();
         }
-        double seuil = sldSimilarite.getValue()/100.0;
+
+        List<String> titles = new ArrayList<>(textsMap.keySet());
+        List<String> texts = new ArrayList<>(textsMap.values());
         
+
+        List<List<String>> urisList = URIFinder.find(texts, 0.2);
+        for( List<String> uris : urisList)
+        {
+        	texts = FrequencySorter.process(uris);
+        	List<Model> models = RDFGraphGenerator.generateRDF(uris);
+        	Model unifiedGraph = GraphUnifier.unifyModels(models);
+        	//Snippet s = new Snippet("Caca");
+        }
+        //List<List<String>> sortedUrisList = FrequencySorter.processAll(urisList);
+
+        //List<List<Model>> modelsList = RDFGraphGenerator.generateAllRDF(sortedUrisList);
+        //List<Model> unifiedModels = GraphUnifier.unifyAllModels(modelsList);
+
+        List<Snippet> snippets = new ArrayList<>();
+
+        /*for(int i = 0; i < titles.size(); i++) {
+            String title = titles.get(i);
+            snippets.add(new Snippet(title));
+        }
+        */
         
         //List<Snippet> snippets = identifyConcepts(query, searchEngine, 5, seuil);
         
         pannelMainConcept1.setVisible(true);
+        this.titleMainConcept1.setText(Integer.toString(numberOfResults));
         pannelMainConcept2.setVisible(true);
         pannelMainConcept3.setVisible(true);
         pannelMainConcept4.setVisible(true);
         //pannelMainConcept5.setVisible(true);
         
         
-        for(int i=0; i<snippets.size(); i++) {
+        /*for(int i=0; i<snippets.size(); i++) {
             panelSnippets.get(i).setVisible(true);
             snippetTitles.get(i).setText(snippets.get(i).getTitle());
-        }
+        }*/
     }//GEN-LAST:event_btnGoClicked
 
     private void panelConcept21conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept21conceptClicked
@@ -2465,7 +2501,7 @@ public class SearchApp extends javax.swing.JFrame {
             }
         });
     }
-
+    
     //private List<javax.swing.JLabel> snippetTitles;
     private List<javax.swing.JTextArea> snippetTexts;
     private List<javax.swing.JLabel> snippetTitles;

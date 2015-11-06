@@ -14,13 +14,13 @@ public class URIFinder {
 
     }
 
-    public static List<String> find(String text) {
+    public static List<String> find(String text, double confidence) {
         List<String> uris = new ArrayList<>();
 
         try {
             Document doc = Jsoup.connect("http://spotlight.dbpedia.org/rest/annotate")
                     .header("content-type", "application/x-www-form-urlencoded")
-                    .data("confidence", "0.2")
+                    .data("confidence", Double.toString(confidence))
                     .data("support", "0")
                     .timeout(0)
                     .data("text", text)
@@ -36,13 +36,14 @@ public class URIFinder {
         return uris;
     }
 
-    public static List<List<String>> find(List<String> texts) {
-        List<List<String>> urisLists = new ArrayList<>();
+    public static List<List<String>> find(List<String> texts, double confidence) {
+        List<List<String>> urisList = new ArrayList<>();
 
         for(String text : texts) {
-            urisLists.add(find(text));
+            List<String> uris = find(text, confidence);
+            urisList.add(find(text, confidence));
         }
 
-        return urisLists;
+        return urisList;
     }
 }

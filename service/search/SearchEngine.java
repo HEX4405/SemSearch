@@ -11,12 +11,6 @@ import java.util.List;
 
 public class SearchEngine {
 
-    public enum Engine {
-        GOOGLE,
-        BING,
-        YAHOO
-    }
-
     private SearchEngine(){
 
     }
@@ -34,8 +28,8 @@ public class SearchEngine {
 
             Elements elements = doc.select(".b_algo h2 a");
 
-            for(Element e : elements) {
-                String url = e.attr("href");
+            for(int i = 0; i < elements.size() && i < numberOfResults; i++) {
+                String url = elements.get(i).attr("href");
                 urls.add(url);
             }
         } catch (IOException e) {
@@ -57,8 +51,8 @@ public class SearchEngine {
 
             Elements elements = doc.select(".g>h3 a");
 
-            for(Element e : elements) {
-                String url = e.attr("href");
+            for(int i = 0; i < elements.size() && i < numberOfResults; i++) {
+                String url = elements.get(i).attr("href");
                 if(url.startsWith("/url"))
                     urls.add("http://google.com" + url);
             }
@@ -81,8 +75,8 @@ public class SearchEngine {
 
             Elements elements = doc.select(".compTitle a");
 
-            for(Element e : elements) {
-                String url = e.attr("href");
+            for(int i = 0; i < elements.size() && i < numberOfResults; i++) {
+                String url = elements.get(i).attr("href");
                 urls.add(url);
             }
         } catch (IOException e) {
@@ -91,19 +85,19 @@ public class SearchEngine {
         return urls;
     }
 
-    public static List<String> search(Engine engine, String query, int numberOfResults) {
-        switch(engine) {
-            case BING:
-                    return searchBing(query, numberOfResults);
+    public static List<String> search(String searchEngine, String query, int numberOfResults) {
+        searchEngine = searchEngine.toUpperCase();
 
-            case GOOGLE:
+        switch(searchEngine) {
+            case "GOOGLE":
                     return searchGoogle(query, numberOfResults);
 
-            case YAHOO:
+            case "YAHOO":
                     return searchYahoo(query, numberOfResults);
 
+            case "BING":
             default:
-                    return null;
+                return searchBing(query, numberOfResults);
         }
     }
 }

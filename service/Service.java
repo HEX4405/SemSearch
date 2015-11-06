@@ -1,5 +1,6 @@
 package service;
 
+import modele.Snippet;
 import service.extract.Extractor;
 import service.finder.URIFinder;
 import service.frequency.FrequencySorter;
@@ -9,26 +10,33 @@ import java.util.*;
 
 public class Service {
 
-    public static void main(String [] args) {
-        String query = "communism";
-        int numberOfResults = 10;
-        double confidence = 0.2;
+    public static List<Snippet> identifyConcepts(String query, String searchEngine, int numberOfResults, double similarity) {
+        List<String> urls = null;
+        Map<String, String> textsMap = null;
+        int currentNumberOfResults = 0;
 
-        System.out.println("Searching...");
-        List<String> urls = SearchEngine.search(SearchEngine.Engine.BING, query, numberOfResults);
-        System.out.println("Extracting...");
-        List<String> texts = Extractor.extract(urls);
-        System.out.println("Finding URI...");
-        List<List<String>> urisList = URIFinder.find(texts, confidence);
-        System.out.println("Done.");
+        for(int i = 0; i < 10 && currentNumberOfResults != numberOfResults; i++) {
+            urls = SearchEngine.search(searchEngine, query, numberOfResults);
+            textsMap = Extractor.extract(urls);
+            currentNumberOfResults = textsMap.size();
+        }
+
+        List<String> titles = new ArrayList<>(textsMap.keySet());
+        List<String> texts = new ArrayList<>(textsMap.values());
+
+        List<List<String>> urisList = URIFinder.find(texts, 0.2);
         List<List<String>> sortedUrisList = FrequencySorter.processAll(urisList);
 
-        for(List<String> sortedUris : sortedUrisList) {
-            for(int i = 0; i < sortedUris.size() && i < 10; i++) {
-                System.out.println(sortedUris.get(i));
-            }
-            System.out.println("============");
+        //List<List<Model>> modelsList = RDFGraphGenerator.generateAllRDF(sortedUrisList);
+        //List<Model> unifiedModels = GraphUnifier.unifyAllModels(modelsList);
+
+        List<Snippet> snippets = new ArrayList<>();
+
+        for(int i = 0; i < titles.size(); i++) {
+            String title = titles.get(i);
         }
+
+        return snippets;
     }
 }
 

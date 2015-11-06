@@ -2,7 +2,10 @@ package service.extract;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -12,8 +15,8 @@ public class Extractor {
 
     }
 
-    public static List<String> extract(List<String> urls) {
-        List<String> texts = new ArrayList<>();
+    public static Map<String, String> extract(List<String> urls) {
+        Map<String, String> textsMap = new HashMap<>();
 
         for(String url : urls) {
             try {
@@ -23,15 +26,16 @@ public class Extractor {
                         .timeout(0)
                         .get();
 
+                String title = doc.select("title").text();
                 String text = doc.select("p").text();
                 if(!text.isEmpty()) {
-                    texts.add(text);
+                    textsMap.put(title, text);
                 }
             } catch(IOException e) {
                 System.err.println("[EXTRACTOR] " + e.getMessage());
             }
         }
 
-        return texts;
+        return textsMap;
     }
 }

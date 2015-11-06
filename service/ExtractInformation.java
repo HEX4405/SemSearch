@@ -8,6 +8,8 @@ import org.apache.jena.rdf.model.NodeIterator;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.Statement;
+import org.apache.jena.vocabulary.RDFS;
 
 public class ExtractInformation {
 	
@@ -18,28 +20,40 @@ public class ExtractInformation {
 	public static Map<String,String> extractInformations(Model m, String mainUri){
 		Map<String,String> result = new HashMap<String,String>();
 		
-		
-		
-		return result;
-	}
-	
-	private static String getTitle(Model m, String mainUri){
-		String result = null;
-		
-		Property property = m.getProperty("dbo", "alias");
-		Resource mainResource = m.getResource(mainUri);
-		
-		NodeIterator it = m.listObjectsOfProperty(mainResource, property);
-		RDFNode node = it.nextNode();
-		
-		result = node.toString();
-			
+		result.put("Label", ExtractInformation.getLabel(m, mainUri));
+		result.put("Comment", ExtractInformation.getComment(m, mainUri));
 		
 		return result;
 	}
 	
-	private static String getDescription(Model m, String mainUri){
+	private static String getLabel(Model m, String mainUri){
 		String result = null;
+		try{
+			Resource mainResource = m.getResource(mainUri);
+			Statement state = m.getProperty(mainResource,RDFS.label);
+			RDFNode node = state.getObject();
+			result = node.toString();
+		}
+		catch(Exception e)
+		{
+			result = "";
+		}
+		return result;
+	}
+	
+	private static String getComment(Model m, String mainUri){
+		String result = null;
+		
+		try{
+			Resource mainResource = m.getResource(mainUri);
+			Statement state = m.getProperty(mainResource,RDFS.comment);
+			RDFNode node = state.getObject();
+			result = node.toString();
+		}
+		catch(Exception e)
+		{
+			result = "";
+		}
 		
 		return result;
 	}

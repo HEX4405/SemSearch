@@ -13,11 +13,7 @@ public class GraphUnifier {
 	
 	public static Model unifyModels(List<Model> models){
 		Model result=ModelFactory.createDefaultModel();
-		if(models.size()==1)
-		{	
-			result = models.remove(0);
-		}
-		else if(models.size()==0){
+		if(models.size()==0){	
 			result = null;
 		}
 		else{

@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,6 +27,20 @@ public class SearchApp extends javax.swing.JFrame {
         setLocation(200, 150);
         btnGO.requestFocus();
         panelResults.setVisible(false);
+        
+        pannelMainConcept1.setVisible(false);
+        /*
+        pannelMainConcept2.setVisible(false);
+        pannelMainConcept3.setVisible(false);
+        pannelMainConcept4.setVisible(false);
+        pannelMainConcept5.setVisible(false);
+        
+        panelSnipet1.setVisible(false);
+        panelSnipet2.setVisible(false);
+        panelSnipet3.setVisible(false);
+        panelSnipet4.setVisible(false);
+        panelSnipet5.setVisible(false);
+        */
     }
 
     /**
@@ -55,7 +70,7 @@ public class SearchApp extends javax.swing.JFrame {
         cmbBoxNumber = new javax.swing.JComboBox();
         panelResults = new javax.swing.JPanel();
         panelSnipet1 = new javax.swing.JPanel();
-        panelConcept1 = new javax.swing.JPanel();
+        panelConcept11 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtConceptContent11 = new javax.swing.JTextArea();
         lblConceptTitle11 = new javax.swing.JLabel();
@@ -63,15 +78,15 @@ public class SearchApp extends javax.swing.JFrame {
         txtSnipetText1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         lblPageTitle1 = new javax.swing.JLabel();
-        panelConcept4 = new javax.swing.JPanel();
+        panelConcept12 = new javax.swing.JPanel();
         lblConceptTitle12 = new javax.swing.JLabel();
         jScrollPane20 = new javax.swing.JScrollPane();
         txtConceptContent12 = new javax.swing.JTextArea();
-        panelConcept5 = new javax.swing.JPanel();
+        panelConcept13 = new javax.swing.JPanel();
         lblConceptTitle13 = new javax.swing.JLabel();
         jScrollPane21 = new javax.swing.JScrollPane();
         txtConceptContent13 = new javax.swing.JTextArea();
-        panelConcept6 = new javax.swing.JPanel();
+        panelConcept14 = new javax.swing.JPanel();
         lblConceptTitle14 = new javax.swing.JLabel();
         jScrollPane22 = new javax.swing.JScrollPane();
         txtConceptContent14 = new javax.swing.JTextArea();
@@ -237,7 +252,6 @@ public class SearchApp extends javax.swing.JFrame {
 
         sldSimilarite.setBackground(new java.awt.Color(247, 247, 247));
         sldSimilarite.setForeground(new java.awt.Color(51, 102, 0));
-        sldSimilarite.setValue(50);
 
         jLabel1.setForeground(new java.awt.Color(51, 153, 0));
         jLabel1.setText("1");
@@ -337,11 +351,11 @@ public class SearchApp extends javax.swing.JFrame {
         panelSnipet1.setBackground(new java.awt.Color(247, 247, 247));
         panelSnipet1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(152, 226, 77), 3));
 
-        panelConcept1.setBackground(new java.awt.Color(252, 252, 252));
-        panelConcept1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(154, 204, 102)));
-        panelConcept1.addMouseListener(new java.awt.event.MouseAdapter() {
+        panelConcept11.setBackground(new java.awt.Color(252, 252, 252));
+        panelConcept11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(154, 204, 102)));
+        panelConcept11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                conceptClicked(evt);
+                panelConcept11conceptClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 conceptOvered(evt);
@@ -365,19 +379,19 @@ public class SearchApp extends javax.swing.JFrame {
         lblConceptTitle11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblConceptTitle11.setText("Title concept");
 
-        javax.swing.GroupLayout panelConcept1Layout = new javax.swing.GroupLayout(panelConcept1);
-        panelConcept1.setLayout(panelConcept1Layout);
-        panelConcept1Layout.setHorizontalGroup(
-            panelConcept1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelConcept1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelConcept11Layout = new javax.swing.GroupLayout(panelConcept11);
+        panelConcept11.setLayout(panelConcept11Layout);
+        panelConcept11Layout.setHorizontalGroup(
+            panelConcept11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConcept11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(lblConceptTitle11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        panelConcept1Layout.setVerticalGroup(
-            panelConcept1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConcept1Layout.createSequentialGroup()
+        panelConcept11Layout.setVerticalGroup(
+            panelConcept11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConcept11Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblConceptTitle11, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -416,11 +430,11 @@ public class SearchApp extends javax.swing.JFrame {
         lblPageTitle1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPageTitle1.setText("Title result 1");
 
-        panelConcept4.setBackground(new java.awt.Color(252, 252, 252));
-        panelConcept4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(154, 204, 102)));
-        panelConcept4.addMouseListener(new java.awt.event.MouseAdapter() {
+        panelConcept12.setBackground(new java.awt.Color(252, 252, 252));
+        panelConcept12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(154, 204, 102)));
+        panelConcept12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                conceptClicked(evt);
+                panelConcept12conceptClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 conceptOvered(evt);
@@ -444,29 +458,29 @@ public class SearchApp extends javax.swing.JFrame {
         txtConceptContent12.setBorder(null);
         jScrollPane20.setViewportView(txtConceptContent12);
 
-        javax.swing.GroupLayout panelConcept4Layout = new javax.swing.GroupLayout(panelConcept4);
-        panelConcept4.setLayout(panelConcept4Layout);
-        panelConcept4Layout.setHorizontalGroup(
-            panelConcept4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelConcept12Layout = new javax.swing.GroupLayout(panelConcept12);
+        panelConcept12.setLayout(panelConcept12Layout);
+        panelConcept12Layout.setHorizontalGroup(
+            panelConcept12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblConceptTitle12, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
-            .addGroup(panelConcept4Layout.createSequentialGroup()
+            .addGroup(panelConcept12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane20, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        panelConcept4Layout.setVerticalGroup(
-            panelConcept4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelConcept4Layout.createSequentialGroup()
+        panelConcept12Layout.setVerticalGroup(
+            panelConcept12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConcept12Layout.createSequentialGroup()
                 .addComponent(lblConceptTitle12, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane20, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        panelConcept5.setBackground(new java.awt.Color(252, 252, 252));
-        panelConcept5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(154, 204, 102)));
-        panelConcept5.addMouseListener(new java.awt.event.MouseAdapter() {
+        panelConcept13.setBackground(new java.awt.Color(252, 252, 252));
+        panelConcept13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(154, 204, 102)));
+        panelConcept13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                conceptClicked(evt);
+                panelConcept13conceptClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 conceptOvered(evt);
@@ -490,29 +504,29 @@ public class SearchApp extends javax.swing.JFrame {
         txtConceptContent13.setBorder(null);
         jScrollPane21.setViewportView(txtConceptContent13);
 
-        javax.swing.GroupLayout panelConcept5Layout = new javax.swing.GroupLayout(panelConcept5);
-        panelConcept5.setLayout(panelConcept5Layout);
-        panelConcept5Layout.setHorizontalGroup(
-            panelConcept5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelConcept13Layout = new javax.swing.GroupLayout(panelConcept13);
+        panelConcept13.setLayout(panelConcept13Layout);
+        panelConcept13Layout.setHorizontalGroup(
+            panelConcept13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblConceptTitle13, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
-            .addGroup(panelConcept5Layout.createSequentialGroup()
+            .addGroup(panelConcept13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane21, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        panelConcept5Layout.setVerticalGroup(
-            panelConcept5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelConcept5Layout.createSequentialGroup()
+        panelConcept13Layout.setVerticalGroup(
+            panelConcept13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConcept13Layout.createSequentialGroup()
                 .addComponent(lblConceptTitle13, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane21, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        panelConcept6.setBackground(new java.awt.Color(252, 252, 252));
-        panelConcept6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(154, 204, 102)));
-        panelConcept6.addMouseListener(new java.awt.event.MouseAdapter() {
+        panelConcept14.setBackground(new java.awt.Color(252, 252, 252));
+        panelConcept14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(154, 204, 102)));
+        panelConcept14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                conceptClicked(evt);
+                panelConcept14conceptClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 conceptOvered(evt);
@@ -536,19 +550,19 @@ public class SearchApp extends javax.swing.JFrame {
         txtConceptContent14.setBorder(null);
         jScrollPane22.setViewportView(txtConceptContent14);
 
-        javax.swing.GroupLayout panelConcept6Layout = new javax.swing.GroupLayout(panelConcept6);
-        panelConcept6.setLayout(panelConcept6Layout);
-        panelConcept6Layout.setHorizontalGroup(
-            panelConcept6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelConcept14Layout = new javax.swing.GroupLayout(panelConcept14);
+        panelConcept14.setLayout(panelConcept14Layout);
+        panelConcept14Layout.setHorizontalGroup(
+            panelConcept14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblConceptTitle14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(panelConcept6Layout.createSequentialGroup()
+            .addGroup(panelConcept14Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane22)
                 .addContainerGap())
         );
-        panelConcept6Layout.setVerticalGroup(
-            panelConcept6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelConcept6Layout.createSequentialGroup()
+        panelConcept14Layout.setVerticalGroup(
+            panelConcept14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConcept14Layout.createSequentialGroup()
                 .addComponent(lblConceptTitle14, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane22, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -577,17 +591,17 @@ public class SearchApp extends javax.swing.JFrame {
                     .addComponent(lblPageTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelSnipet1Layout.createSequentialGroup()
                         .addGroup(panelSnipet1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(panelConcept1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelConcept11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(FirstConcept1, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelSnipet1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelSnipet1Layout.createSequentialGroup()
-                                .addComponent(panelConcept4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(panelConcept12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(panelConcept5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(panelConcept13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(panelConcept6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(panelConcept14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         panelSnipet1Layout.setVerticalGroup(
@@ -605,10 +619,10 @@ public class SearchApp extends javax.swing.JFrame {
                         .addComponent(FirstConcept1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelSnipet1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(panelConcept4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelConcept5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelConcept6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelConcept1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelConcept12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelConcept13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelConcept14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelConcept11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -2069,13 +2083,15 @@ public class SearchApp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_conceptClicked
-        // TODO add your handling code here:
+    private void panelConcept14conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept14conceptClicked
+        new ConceptWindow(evt.getComponent().getName());
+        /*
         System.out.println("concept " + evt.getComponent().getName() + "  clicked");
         
         System.out.println("concept " + evt.getComponent().getHeight() + "  clicked");
         System.out.println("concept " + evt.getComponent().getWidth() + "  clicked");
-    }//GEN-LAST:event_conceptClicked
+        */
+    }//GEN-LAST:event_panelConcept14conceptClicked
 
     private void conceptOvered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_conceptOvered
         // TODO add your handling code here:
@@ -2088,31 +2104,34 @@ public class SearchApp extends javax.swing.JFrame {
     }//GEN-LAST:event_searchBarClicked
 
     private void btnGoClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGoClicked
-        // TODO add your handling code here:
         String query = txtSearchField.getText();
         
-        if(query.equals("MagicFernandez"))
-        {
-            lblTitle.setIcon(new ImageIcon("C:/Users/Cyril/Pictures/Fernandez.jpg"));
-        }
-        else 
-        {
-            String searchEngine = "";
-            for (Enumeration<AbstractButton> buttons = buttonGroup1.getElements(); buttons.hasMoreElements();) {
-                AbstractButton button = buttons.nextElement();
 
-                if (button.isSelected()) {
-                    searchEngine = button.getText();
-                }
+        String searchEngine = "";
+        for (Enumeration<AbstractButton> buttons = buttonGroup1.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                searchEngine = button.getText();
             }
-            double seuil = sldSimilarite.getValue()/100.0;
-
-            System.out.println("GO : " + query + " " + searchEngine + " " + seuil);
-
-            panelResults.setVisible(true);
         }
+        double seuil = sldSimilarite.getValue()/100.0;
+
+        //System.out.println("GO : " + query + " " + searchEngine + " " + seuil);
+
+        pannelMainConcept1.setVisible(true);
+        /*
+        pannelMainConcept2.setVisible(true);
+        pannelMainConcept3.setVisible(true);
+        pannelMainConcept4.setVisible(true);
+        pannelMainConcept5.setVisible(true);
         
-        
+        panelSnipet1.setVisible(true);
+        panelSnipet2.setVisible(true);
+        panelSnipet3.setVisible(true);
+        panelSnipet4.setVisible(true);
+        panelSnipet5.setVisible(true);
+        */
     }//GEN-LAST:event_btnGoClicked
 
     private void panelConcept21conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept21conceptClicked
@@ -2305,6 +2324,18 @@ public class SearchApp extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_saisieVolGo
 
+    private void panelConcept11conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept11conceptClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_panelConcept11conceptClicked
+
+    private void panelConcept12conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept12conceptClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_panelConcept12conceptClicked
+
+    private void panelConcept13conceptClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConcept13conceptClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_panelConcept13conceptClicked
+
     /**
      * @param args the command line arguments
      */
@@ -2365,8 +2396,6 @@ public class SearchApp extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -2425,7 +2454,10 @@ public class SearchApp extends javax.swing.JFrame {
     private javax.swing.JLabel lblPageTitle5;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel panelConcep31;
-    private javax.swing.JPanel panelConcept1;
+    private javax.swing.JPanel panelConcept11;
+    private javax.swing.JPanel panelConcept12;
+    private javax.swing.JPanel panelConcept13;
+    private javax.swing.JPanel panelConcept14;
     private javax.swing.JPanel panelConcept21;
     private javax.swing.JPanel panelConcept22;
     private javax.swing.JPanel panelConcept23;
@@ -2433,17 +2465,14 @@ public class SearchApp extends javax.swing.JFrame {
     private javax.swing.JPanel panelConcept32;
     private javax.swing.JPanel panelConcept33;
     private javax.swing.JPanel panelConcept34;
-    private javax.swing.JPanel panelConcept4;
     private javax.swing.JPanel panelConcept41;
     private javax.swing.JPanel panelConcept42;
     private javax.swing.JPanel panelConcept43;
     private javax.swing.JPanel panelConcept44;
-    private javax.swing.JPanel panelConcept5;
     private javax.swing.JPanel panelConcept51;
     private javax.swing.JPanel panelConcept52;
     private javax.swing.JPanel panelConcept53;
     private javax.swing.JPanel panelConcept54;
-    private javax.swing.JPanel panelConcept6;
     private javax.swing.JPanel panelOptions;
     private javax.swing.JPanel panelResults;
     private javax.swing.JPanel panelSnipet1;

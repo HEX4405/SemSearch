@@ -217,7 +217,6 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="66" red="33" type="rgb"/>
                     </Property>
-                    <Property name="value" type="int" value="50"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel1">
@@ -476,18 +475,18 @@
                                   <Component id="lblPageTitle1" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="panelConcept1" max="32767" attributes="0"/>
+                                          <Component id="panelConcept11" max="32767" attributes="0"/>
                                           <Component id="FirstConcept1" pref="233" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="panelConcept4" min="-2" max="-2" attributes="0"/>
+                                              <Component id="panelConcept12" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="panelConcept5" min="-2" max="-2" attributes="0"/>
+                                              <Component id="panelConcept13" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="panelConcept6" max="32767" attributes="0"/>
+                                              <Component id="panelConcept14" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -513,10 +512,10 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="panelConcept4" max="32767" attributes="0"/>
-                                  <Component id="panelConcept5" max="32767" attributes="0"/>
-                                  <Component id="panelConcept6" max="32767" attributes="0"/>
-                                  <Component id="panelConcept1" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="panelConcept12" max="32767" attributes="0"/>
+                                  <Component id="panelConcept13" max="32767" attributes="0"/>
+                                  <Component id="panelConcept14" max="32767" attributes="0"/>
+                                  <Component id="panelConcept11" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -524,7 +523,7 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Container class="javax.swing.JPanel" name="panelConcept1">
+                    <Container class="javax.swing.JPanel" name="panelConcept11">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="fc" green="fc" red="fc" type="rgb"/>
@@ -538,7 +537,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="conceptClicked"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="panelConcept11conceptClicked"/>
                         <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="conceptOvered"/>
                       </Events>
 
@@ -683,7 +682,7 @@
                         <Property name="text" type="java.lang.String" value="Title result 1"/>
                       </Properties>
                     </Component>
-                    <Container class="javax.swing.JPanel" name="panelConcept4">
+                    <Container class="javax.swing.JPanel" name="panelConcept12">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="fc" green="fc" red="fc" type="rgb"/>
@@ -697,7 +696,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="conceptClicked"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="panelConcept12conceptClicked"/>
                         <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="conceptOvered"/>
                       </Events>
 
@@ -769,7 +768,7 @@
                         </Container>
                       </SubComponents>
                     </Container>
-                    <Container class="javax.swing.JPanel" name="panelConcept5">
+                    <Container class="javax.swing.JPanel" name="panelConcept13">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="fc" green="fc" red="fc" type="rgb"/>
@@ -783,7 +782,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="conceptClicked"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="panelConcept13conceptClicked"/>
                         <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="conceptOvered"/>
                       </Events>
 
@@ -855,7 +854,7 @@
                         </Container>
                       </SubComponents>
                     </Container>
-                    <Container class="javax.swing.JPanel" name="panelConcept6">
+                    <Container class="javax.swing.JPanel" name="panelConcept14">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="fc" green="fc" red="fc" type="rgb"/>
@@ -869,7 +868,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="conceptClicked"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="panelConcept14conceptClicked"/>
                         <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="conceptOvered"/>
                       </Events>
 

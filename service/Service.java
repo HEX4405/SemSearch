@@ -32,7 +32,7 @@ public class Service {
 
         List<Snippet> snippets = new ArrayList<>();
 
-        for(int i = 0; i < numberOfResults; i++) {
+        for(int i = 0; i < titles.size(); i++) {
             String title = titles.get(i);
         }
 

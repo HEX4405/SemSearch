@@ -98,8 +98,7 @@ public class ExtractInformation {
 		
 		try{	
 			Resource mainResource = m.getResource(mainUri);
-			Property it = m.getProperty("http://dublincore.org/documents/2012/06/14/dcmi-terms/?v=terms#subject");
-			NodeIterator it2 = m.listObjectsOfProperty(mainResource, it);
+			NodeIterator it2 = m.listObjectsOfProperty(mainResource, FOAF.knows);
 	
 			int i = 0;
 			while(it2.hasNext()){

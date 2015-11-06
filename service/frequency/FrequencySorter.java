@@ -9,7 +9,7 @@ public class FrequencySorter {
 
     }
 
-    public static List<String> process(List<String> uris, int min) {
+    public static List<String> process(List<String> uris) {
         Map<String, Integer> frequencies = new HashMap<>();
         for(String uri : uris) {
             if(frequencies.containsKey(uri)) {
@@ -31,12 +31,19 @@ public class FrequencySorter {
         List<String> sortedUris = new LinkedList<>();
         for (Iterator<Map.Entry<String, Integer>> it = sortedFrequencies.iterator(); it.hasNext();) {
             Map.Entry<String, Integer> entry = it.next();
-            if(entry.getValue() >= min) {
-                sortedUris.add(entry.getKey());
-            }
-
+            sortedUris.add(entry.getKey());
         }
 
         return sortedUris;
+    }
+
+    public static List<List<String>> processAll(List<List<String>> urisList) {
+        List<List<String>> sortedUrisList = new ArrayList<>();
+
+        for(List<String> uris : urisList) {
+            sortedUrisList.add(process(uris));
+        }
+
+        return sortedUrisList;
     }
 }

@@ -34,7 +34,6 @@ public class Service {
 
         for(int i = 0; i < numberOfResults; i++) {
             String title = titles.get(i);
-            snippets.add(new Snippet(title));
         }
 
         return snippets;

@@ -72,10 +72,10 @@ public class RDFGraphGenerator {
 		return modelsList;
 	}
 	
-	public static void main(String [] args)
+	/*public static void main(String [] args)
 	{
 		List<String> uris = new ArrayList<String>();
 		uris.add("http://dbpedia.org/resource/Barack_Obama");
 		RDFGraphGenerator.generateRDF(uris);
-	}
+	}*/
 }

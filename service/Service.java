@@ -1,6 +1,7 @@
 package service;
 
 import modele.Snippet;
+import org.apache.jena.rdf.model.Model;
 import service.extract.Extractor;
 import service.finder.URIFinder;
 import service.frequency.FrequencySorter;
@@ -14,6 +15,15 @@ import org.apache.jena.rdf.model.Model;
 
 public class Service {
 
+    public static void main(String [] args) {
+        long tStart = System.currentTimeMillis();
+
+        identifyConcepts("communism", "BING", 5, 0);
+
+        long tStop = System.currentTimeMillis();
+
+        System.out.println((tStop - tStart) + " ms.");
+    }
 
     public static List<Snippet> identifyConcepts(String query, String searchEngine, int numberOfResults, double similarity) {
         List<String> urls = null;
@@ -29,8 +39,11 @@ public class Service {
         List<String> titles = new ArrayList<>(textsMap.keySet());
         List<String> texts = new ArrayList<>(textsMap.values());
 
-        //List<List<Model>> modelsList = RDFGraphGenerator.generateAllRDF(sortedUrisList);
-        //List<Model> unifiedModels = GraphUnifier.unifyAllModels(modelsList);
+        List<List<String>> urisList = URIFinder.find(texts, 0.2);
+        List<List<String>> sortedUrisList = FrequencySorter.processAll(urisList);
+
+        List<List<Model>> modelsList = RDFGraphGenerator.generateAllRDF(sortedUrisList);
+        List<Model> unifiedModels = GraphUnifier.unifyAllModels(modelsList);
 
         List<Snippet> snippets = new ArrayList<>();
 

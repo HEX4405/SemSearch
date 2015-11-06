@@ -28,7 +28,7 @@ public class RDFGraphGenerator {
 			m = ModelFactory.createDefaultModel();
 			m.createResource(uri);
 
-			//Requête permettant de r�cup�rer tous les pr�dicats et objets dont l'URI donnée est le sujet
+			//Requête permettant de r�cup�rer tous les pr�dicats et objets dont l'URI donnée est le sujet
 			String queryString = "select distinct ?property ?value from <http://dbpedia.org> where { { <"+ uri +"> ?property ?value . FILTER(STRSTARTS(STR(?property), \"http://www.w3.org/2000/01/rdf-schema#\")) } UNION { <" + uri + "> ?property ?value .  FILTER(STRSTARTS(STR(?property), \"http://www.w3.org/1999/02/22-rdf-syntax-ns\")) } UNION { <" + uri + "> ?property ?value .  FILTER(STRSTARTS(STR(?property), \"http://xmlns.com/foaf/0.1/\")) } }  " ;
 			Query query = QueryFactory.create(queryString);
 			QueryExecution qexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
@@ -37,13 +37,12 @@ public class RDFGraphGenerator {
 				while(results.hasNext()) {
 					QuerySolution sol = results.nextSolution();
 					m.getResource(uri).addProperty(m.createProperty(sol.getResource("property").toString()), sol.get("value"));
-					System.out.println(sol.getResource("property").toString());
 				}
 			} finally {
 				qexec.close();
 			}
 			
-			//Requête permettant de r�cup�rer tous les sujet et prédicats dont l'URI donnée et l'objet
+			//Requête permettant de r�cup�rer tous les sujet et prédicats dont l'URI donnée et l'objet
 			queryString = "select distinct ?resource ?property from <http://dbpedia.org> where { { ?resource ?property <"+ uri +"> . FILTER(STRSTARTS(STR(?property), \"http://www.w3.org/2000/01/rdf-schema#\")) } UNION { ?resource ?property <"+ uri +"> .  FILTER(STRSTARTS(STR(?property), \"http://www.w3.org/1999/02/22-rdf-syntax-ns\")) } UNION { ?resource ?property <"+ uri +"> .  FILTER(STRSTARTS(STR(?property), \"http://xmlns.com/foaf/0.1/\")) } }  " ;
 			query = QueryFactory.create(queryString);
 			qexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);

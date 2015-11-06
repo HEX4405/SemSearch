@@ -24,8 +24,8 @@ public class Service {
         List<List<String>> sortedUrisList = FrequencySorter.processAll(urisList);
 
         for(List<String> sortedUris : sortedUrisList) {
-            for(String uri : sortedUris) {
-                System.out.println(uri);
+            for(int i = 0; i < sortedUris.size() && i < 10; i++) {
+                System.out.println(sortedUris.get(i));
             }
             System.out.println("============");
         }

@@ -90,7 +90,6 @@ public class ExtractInformation {
 			Statement state = m.getProperty(mainResource,FOAF.depiction);
 			RDFNode node = state.getObject();
 			result = node.toString();
-			result = result.substring(0, result.length()-3);
 		}
 		catch(Exception e)
 		{

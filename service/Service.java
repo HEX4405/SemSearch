@@ -8,6 +8,7 @@ import service.finder.URIFinder;
 import service.frequency.FrequencySorter;
 import service.graphUnifier.GraphUnifier;
 import service.search.SearchEngine;
+import service.similarity.Similarity;
 import service.sparql.RDFGraphGenerator;
 
 import java.util.*;
@@ -19,7 +20,7 @@ public class Service {
     public static void main(String [] args) {
         long tStart = System.currentTimeMillis();
 
-        identifyConcepts("Metal", "YAHOO", 2, 0);
+        identifyConcepts("Caca", "YAHOO", 2, 0);
 
         long tStop = System.currentTimeMillis();
 
@@ -85,6 +86,17 @@ public class Service {
         	i++;
         }
         
+        int n = unifiedModels.size();
+        float[][] similarityMatrix = new float[n][n];
+        similarityMatrix = Similarity.getMatrixSimilarity(unifiedModels);
+        for(int j =0; j<n; j++)
+        {
+        	for(int k =0; k<n;k++)
+        	{
+        		System.out.print(similarityMatrix[j][k]+" ");
+        	}
+        	System.out.print("\n");
+        }
         
 
         List<Snippet> snippets = new ArrayList<>();

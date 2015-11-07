@@ -6,6 +6,10 @@ import java.util.List;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.Statement;
+import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.query.*;
 
 public class RDFGraphGenerator {
@@ -29,7 +33,7 @@ public class RDFGraphGenerator {
 			m.createResource(uri);
 
 			//Requête permettant de r�cup�rer tous les pr�dicats et objets dont l'URI donnée est le sujet
-			String queryString = "select distinct ?property ?value from <http://dbpedia.org> where { { <"+ uri +"> ?property ?value . FILTER(STRSTARTS(STR(?property), \"http://www.w3.org/2000/01/rdf-schema#\")) } UNION { <" + uri + "> ?property ?value .  FILTER(STRSTARTS(STR(?property), \"http://www.w3.org/1999/02/22-rdf-syntax-ns\")) } UNION { <" + uri + "> ?property ?value .  FILTER(STRSTARTS(STR(?property), \"http://xmlns.com/foaf/0.1/\")) } }  " ;
+			String queryString = "select distinct ?property ?value from <http://dbpedia.org> where { FILTER(!isLiteral(?value)||LANG(?value) = \"fr\" || LANG(?value) = \"en\" || LANG(?value) = \"\") { <"+ uri +"> ?property ?value . FILTER(STRSTARTS(STR(?property), \"http://www.w3.org/2000/01/rdf-schema#\")) } UNION { <" + uri + "> ?property ?value .  FILTER(STRSTARTS(STR(?property), \"http://www.w3.org/1999/02/22-rdf-syntax-ns\")) } UNION { <" + uri + "> ?property ?value .  FILTER(STRSTARTS(STR(?property), \"http://xmlns.com/foaf/0.1/\")) } }  " ;
 			Query query = QueryFactory.create(queryString);
 			QueryExecution qexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
 			try {
@@ -42,7 +46,7 @@ public class RDFGraphGenerator {
 				qexec.close();
 			}
 			
-			//Requête permettant de r�cup�rer tous les sujet et prédicats dont l'URI donnée et l'objet
+			/*//Requ�te permettant de r�cup�rer tous les sujet et prédicats dont l'URI donnée est l'objet
 			queryString = "select distinct ?resource ?property from <http://dbpedia.org> where { { ?resource ?property <"+ uri +"> . FILTER(STRSTARTS(STR(?property), \"http://www.w3.org/2000/01/rdf-schema#\")) } UNION { ?resource ?property <"+ uri +"> .  FILTER(STRSTARTS(STR(?property), \"http://www.w3.org/1999/02/22-rdf-syntax-ns\")) } UNION { ?resource ?property <"+ uri +"> .  FILTER(STRSTARTS(STR(?property), \"http://xmlns.com/foaf/0.1/\")) } }  " ;
 			query = QueryFactory.create(queryString);
 			qexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
@@ -55,9 +59,12 @@ public class RDFGraphGenerator {
 				}
 			} finally {
 				qexec.close();
-			}
-		
+			}*/
+			models.add(m);
+			
 		}
+		
+		
 		return models;
 	}
 

@@ -23,7 +23,7 @@ public class Extractor {
                 Document doc = Jsoup.connect(url)
                         .userAgent("Mozilla")
                         .followRedirects(true)
-                        .timeout(0)
+                        .timeout(60*1000)
                         .get();
 
                 String title = doc.select("title").text();

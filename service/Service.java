@@ -1,5 +1,6 @@
 package service;
 
+import modele.Concept;
 import modele.Snippet;
 import org.apache.jena.rdf.model.Model;
 import service.extract.Extractor;
@@ -18,7 +19,7 @@ public class Service {
     public static void main(String [] args) {
         long tStart = System.currentTimeMillis();
 
-        identifyConcepts("communism", "BING", 5, 0);
+        identifyConcepts("Karl Marx", "YAHOO", 1, 0);
 
         long tStop = System.currentTimeMillis();
 
@@ -26,10 +27,11 @@ public class Service {
     }
 
     public static List<Snippet> identifyConcepts(String query, String searchEngine, int numberOfResults, double similarity) {
-        List<String> urls = null;
-        Map<String, String> textsMap = null;
+        List<String> urls = new ArrayList<String>();
+        Map<String, String> textsMap = new HashMap<String,String>();
         int currentNumberOfResults = 0;
 
+        
         for(int i = 0; i < 10 && currentNumberOfResults != numberOfResults; i++) {
             urls = SearchEngine.search(searchEngine, query, numberOfResults);
             textsMap = Extractor.extract(urls);
@@ -41,15 +43,44 @@ public class Service {
 
         List<List<String>> urisList = URIFinder.find(texts, 0.2);
         List<List<String>> sortedUrisList = FrequencySorter.processAll(urisList);
-
+        
+        
+        System.out.println("Sorted Uris list by URL ");
+        for(List<String> i : sortedUrisList)
+        {
+        	System.out.println("=======================================");
+        	if(i.size() > 5)
+        	{
+        		i = i.subList(0, 4);
+        	}
+        	
+        	for(String j : i)
+        	{
+        		System.out.println(j);
+        	}
+        }
         List<List<Model>> modelsList = RDFGraphGenerator.generateAllRDF(sortedUrisList);
+        
+        
         List<Model> unifiedModels = GraphUnifier.unifyAllModels(modelsList);
+        
+        int i = 0;
+        for(Model m : unifiedModels)
+        {
+        	List<Concept> listConcept = ExtractInformation.extractInformations(m, sortedUrisList.get(i).get(0));
+        	for(Concept c : listConcept)
+        	{
+        		System.out.println(urls.get(i));
+        		System.out.println(c.getTitle());
+        		System.out.println(c.getDescription());
+        	}
+        	i++;
+        }
+        
+        
 
         List<Snippet> snippets = new ArrayList<>();
 
-        for(int i = 0; i < titles.size(); i++) {
-            String title = titles.get(i);
-        }
 
         return snippets;
     }

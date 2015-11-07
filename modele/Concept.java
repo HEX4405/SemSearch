@@ -4,11 +4,13 @@ public class Concept {
 
     private String title;
     private String description;
+    private String imageLink;
 
 
-    public Concept(String title, String description) {
+    public Concept(String title, String description, String imageLink) {
         this.title = title;
         this.description = description;
+        this.imageLink = imageLink;
     }
 
     public String getTitle() {
@@ -17,5 +19,9 @@ public class Concept {
 
     public String getDescription() {
         return this.description;
+    }
+    
+    public String getImageLink() {
+        return this.imageLink;
     }
 }

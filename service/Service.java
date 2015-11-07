@@ -19,7 +19,7 @@ public class Service {
     public static void main(String [] args) {
         long tStart = System.currentTimeMillis();
 
-        identifyConcepts("Karl Marx", "YAHOO", 1, 0);
+        identifyConcepts("Weed", "BING", 2, 0);
 
         long tStop = System.currentTimeMillis();
 
@@ -46,13 +46,15 @@ public class Service {
         
         
         System.out.println("Sorted Uris list by URL ");
+        List<List<String>> sortedShorterUrisList = new ArrayList<>();
         for(List<String> i : sortedUrisList)
         {
         	System.out.println("=======================================");
         	if(i.size() > 5)
         	{
-        		i = i.subList(0, 4);
+        		i = i.subList(0, 5);
         	}
+        	sortedShorterUrisList.add(i);
         	
         	for(String j : i)
         	{
@@ -67,12 +69,18 @@ public class Service {
         int i = 0;
         for(Model m : unifiedModels)
         {
-        	List<Concept> listConcept = ExtractInformation.extractInformations(m, sortedUrisList.get(i).get(0));
+        	System.out.println("=======================================");
+        	
+        	List<Concept> listConcept = ExtractInformation.extractInformations(m, sortedShorterUrisList.get(i));
+        	
+        	System.out.println(urls.get(i));
+        	
         	for(Concept c : listConcept)
         	{
-        		System.out.println(urls.get(i));
+        		
         		System.out.println(c.getTitle());
         		System.out.println(c.getDescription());
+        		System.out.println(c.getImageLink());
         	}
         	i++;
         }

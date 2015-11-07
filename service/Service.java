@@ -19,7 +19,7 @@ public class Service {
     public static void main(String [] args) {
         long tStart = System.currentTimeMillis();
 
-        identifyConcepts("Weed", "BING", 2, 0);
+        identifyConcepts("Metal", "YAHOO", 2, 0);
 
         long tStop = System.currentTimeMillis();
 

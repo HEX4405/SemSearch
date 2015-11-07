@@ -33,7 +33,7 @@ public class RDFGraphGenerator {
 			m.createResource(uri);
 
 			//Requête permettant de r�cup�rer tous les pr�dicats et objets dont l'URI donnée est le sujet
-			String queryString = "select distinct ?property ?value from <http://dbpedia.org> where { FILTER(!isLiteral(?value)||LANG(?value) = \"fr\" || LANG(?value) = \"en\" || LANG(?value) = \"\") { <"+ uri +"> ?property ?value . FILTER(STRSTARTS(STR(?property), \"http://www.w3.org/2000/01/rdf-schema#\")) } UNION { <" + uri + "> ?property ?value .  FILTER(STRSTARTS(STR(?property), \"http://www.w3.org/1999/02/22-rdf-syntax-ns\")) } UNION { <" + uri + "> ?property ?value .  FILTER(STRSTARTS(STR(?property), \"http://xmlns.com/foaf/0.1/\")) } }  " ;
+			String queryString = "select distinct ?property ?value from <http://dbpedia.org> where { FILTER(!isLiteral(?value) || LANG(?value) = \"en\" || LANG(?value) = \"\") { <"+ uri +"> ?property ?value . FILTER(STRSTARTS(STR(?property), \"http://www.w3.org/2000/01/rdf-schema#\")) } UNION { <" + uri + "> ?property ?value .  FILTER(STRSTARTS(STR(?property), \"http://www.w3.org/1999/02/22-rdf-syntax-ns\")) } UNION { <" + uri + "> ?property ?value .  FILTER(STRSTARTS(STR(?property), \"http://xmlns.com/foaf/0.1/\")) } }  " ;
 			Query query = QueryFactory.create(queryString);
 			QueryExecution qexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
 			try {

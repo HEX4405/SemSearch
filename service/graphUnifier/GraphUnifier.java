@@ -5,6 +5,11 @@ import java.util.List;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.Statement;
+import org.apache.jena.rdf.model.StmtIterator;
 
 public class GraphUnifier {
 	
@@ -22,6 +27,7 @@ public class GraphUnifier {
 				result = result.union(m);
 			}
 		}
+		
 		return result;
 	}
 

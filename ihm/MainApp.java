@@ -126,8 +126,8 @@ public class MainApp {
 		JButton btnGo = new JButton("Go !");
 		btnGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//snippetsPanel.removeAll();
-				//snippetsPanel.repaint();
+				snippetsPanel.removeAll();
+				snippetsPanel.repaint();
 				String query = txtSearch.getText();
 		        
 		        String searchEngine = "";
@@ -141,7 +141,7 @@ public class MainApp {
 				
 				long tStart = System.currentTimeMillis();
 				
-				List<String> urls = Service.getUrls(query, searchEngine, 3);
+				List<String> urls = Service.getUrls(query, searchEngine, 10);
 				
 				for(String url : urls)
 				{

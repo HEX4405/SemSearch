@@ -117,7 +117,14 @@ public class Service {
             
             //snippets.add(new Snippet(title));
         }
-        return snippets.get(0);
+        if(snippets.size() != 0)
+        {
+        	return snippets.get(0);
+        }
+        else
+        {
+        	return null;
+        }
     }
     
     public static List<String> getUrls(String query, String searchEngine, int numberOfResults)

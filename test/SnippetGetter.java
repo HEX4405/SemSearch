@@ -33,9 +33,11 @@ public class SnippetGetter implements Runnable {
 		
 		Snippet snippetToDisplay = Service.identifyConcepts(similarity, url);
 		
-		
-		synchronized(mainApp){
-			mainApp.addANewSnippetToPanel(snippetToDisplay);
+		if(snippetToDisplay != null)
+		{
+			synchronized(mainApp){
+				mainApp.addANewSnippetToPanel(snippetToDisplay);
+			}
 		}
 	}
 

@@ -20,6 +20,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
@@ -152,19 +153,16 @@ public class MainApp {
 		JPanel panel_1 = new JPanel();
 		frame.getContentPane().add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new BorderLayout(0, 0));
+		this.snippetsPanel = panel_1;
 		
 		
 		JPanel panel_2 = new JPanel();
-		panel_1.add(panel_2, BorderLayout.CENTER);
 		this.snippetsPanel = panel_2;
 		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.Y_AXIS));
 		
-		JScrollBar scrollBar = new JScrollBar();
+		JScrollPane scroller = new JScrollPane(panel_2);
+		panel_1.add(scroller, BorderLayout.CENTER);
 		
-		panel_2.add(scrollBar);
-		
-		JScrollBar scrollBar_1 = new JScrollBar();
-		panel_2.add(scrollBar_1);
 			
 		
 	}

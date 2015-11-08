@@ -165,13 +165,16 @@ public class MainApp {
 		this.textAreas.add(textArea);
 		this.snippetsPanel.add(textArea);
 		
-        
-        //JLabel label = new JLabel(new ImageIcon(snippet.getMainConcept().getImage()));
+        if(snippet.getMainConcept().getImage() != null)
+        {
+	        JLabel label = new JLabel(new ImageIcon(snippet.getMainConcept().getImage()));
+	        this.snippetsPanel.add(label);
+        }
 		
 		
 		JSeparator separator = new JSeparator();
 		this.snippetsPanel.add(separator);
-		//this.snippetsPanel.add(label);
+
 		
 		textArea.setText(snippet.getTitle());
 	}

@@ -5,6 +5,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,9 @@ public class URIFinder {
                     .post();
 
             for (Element e : doc.select("a")) {
-                uris.add(e.attr("href"));
+                String uri = e.attr("href");
+                uri = URLDecoder.decode(uri);
+            	uris.add(uri);
             }
         } catch(IOException e) {
             System.err.println("[URIFINDER] " + e.getMessage());
@@ -46,4 +49,5 @@ public class URIFinder {
 
         return urisList;
     }
+    
 }

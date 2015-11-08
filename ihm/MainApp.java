@@ -119,8 +119,8 @@ public class MainApp {
 		JButton btnGo = new JButton("Go !");
 		btnGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				snippetsPanel.removeAll();
-				snippetsPanel.repaint();
+				//snippetsPanel.removeAll();
+				//snippetsPanel.repaint();
 				long tStart = System.currentTimeMillis();
 				
 				List<String> urls = Service.getUrls("Metal", "YAHOO", 3);
@@ -154,17 +154,17 @@ public class MainApp {
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setOrientation(JScrollBar.HORIZONTAL);
-		panel_1.add(scrollBar, BorderLayout.SOUTH);
-		
-		JScrollBar scrollBar_1 = new JScrollBar();
-		panel_1.add(scrollBar_1, BorderLayout.EAST);
-		
 		JPanel panel_2 = new JPanel();
 		panel_1.add(panel_2, BorderLayout.CENTER);
 		this.snippetsPanel = panel_2;
 		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.Y_AXIS));
+		
+		JScrollBar scrollBar = new JScrollBar();
+		
+		panel_2.add(scrollBar);
+		
+		JScrollBar scrollBar_1 = new JScrollBar();
+		panel_2.add(scrollBar_1);
 			
 		
 	}
@@ -209,12 +209,13 @@ public class MainApp {
 		lblMainTitle.setForeground(new Color(46, 139, 87));
 		lblMainTitle.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblMainTitle.setHorizontalAlignment(SwingConstants.LEFT);
+		lblMainTitle.setText(snippet.getMainConcept().getTitle());
 		panelMainContent.add(lblMainTitle, BorderLayout.NORTH);
 		
 		JTextArea txtMainDescription = new JTextArea();
 		txtMainDescription.setLineWrap(true);
 		txtMainDescription.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		txtMainDescription.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+		txtMainDescription.setText(snippet.getMainConcept().getDescription());
 		panelMainContent.add(txtMainDescription, BorderLayout.CENTER);
 		
 		JPanel panel_6 = new JPanel();
@@ -234,78 +235,36 @@ public class MainApp {
 		panelContent.add(panelConcepts, BorderLayout.SOUTH);
 		panelConcepts.setLayout(new BoxLayout(panelConcepts, BoxLayout.X_AXIS));
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setForeground(new Color(245, 255, 250));
-		panelConcepts.add(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblImg1 = new JLabel("");
-		lblImg1.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		panel_1.add(lblImg1, BorderLayout.NORTH);
+	
 		
-		JLabel lblTitle1 = new JLabel("Titre");
-		lblTitle1.setBackground(new Color(245, 255, 250));
-		lblTitle1.setForeground(new Color(0, 0, 0));
-		lblTitle1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblTitle1.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_1.add(lblTitle1, BorderLayout.CENTER);
+		List<Concept> listConceptAssocies = snippet.getAssociatedConcepts();
 		
-		JPanel panel_2 = new JPanel();
-		panelConcepts.add(panel_2);
-		panel_2.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblImg2 = new JLabel("");
-		lblImg2.setHorizontalAlignment(SwingConstants.CENTER);
+		for(Concept c : listConceptAssocies)
+		{
+			JPanel panel_for_concept = new JPanel();
+			
+			panel_for_concept.setBackground(new Color(60, 179, 113));
+			panel_for_concept.setLayout(new BorderLayout(0, 0));
+			
+			JLabel lblImg1 = new JLabel("");
+			lblImg1.setHorizontalAlignment(SwingConstants.CENTER);
+			
+			panel_for_concept.add(lblImg1, BorderLayout.NORTH);
+			
+			JLabel lblTitle1 = new JLabel("Titre");
+			lblTitle1.setBackground(new Color(245, 255, 250));
+			lblTitle1.setForeground(new Color(0, 0, 0));
+			lblTitle1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			lblTitle1.setText(c.getTitle());
+			lblTitle1.setHorizontalAlignment(SwingConstants.CENTER);
+			panel_for_concept.add(lblTitle1, BorderLayout.CENTER);
+			
+			panelConcepts.add(panel_for_concept);
+		}
 		
-		panel_2.add(lblImg2, BorderLayout.NORTH);
-		
-		JLabel lblTitle2 = new JLabel("Titre");
-		lblTitle2.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblTitle2.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(lblTitle2);
-		
-		JPanel panel_3 = new JPanel();
-		panelConcepts.add(panel_3);
-		panel_3.setLayout(new BorderLayout(0, 0));
-		
-		JLabel lblImg3 = new JLabel("");
-		lblImg3.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		panel_3.add(lblImg3, BorderLayout.NORTH);
-		
-		JLabel lblTitle3 = new JLabel("Titre");
-		lblTitle3.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblTitle3.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_3.add(lblTitle3);
-		
-		JPanel panel_4 = new JPanel();
-		panelConcepts.add(panel_4);
-		panel_4.setLayout(new BorderLayout(0, 0));
-		
-		JLabel lblImg4 = new JLabel("");
-		lblImg4.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		panel_4.add(lblImg4, BorderLayout.NORTH);
-		
-		JLabel lblTitle4 = new JLabel("Titre");
-		lblTitle4.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblTitle4.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_4.add(lblTitle4);
-		
-		JPanel panel_5 = new JPanel();
-		panelConcepts.add(panel_5);
-		panel_5.setLayout(new BorderLayout(0, 0));
-		
-		JLabel lblImg5 = new JLabel("");
-		lblImg5.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		panel_5.add(lblImg5, BorderLayout.NORTH);
-		
-		JLabel lblTitle5 = new JLabel("Titre");
-		lblTitle5.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblTitle5.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_5.add(lblTitle5, BorderLayout.CENTER);
 		
 		
 		JSeparator separator = new JSeparator();

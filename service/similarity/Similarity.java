@@ -1,11 +1,15 @@
 package service.similarity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.StmtIterator;
 
 public class Similarity {
+	
+	
+	private static List<Model> listModelsDefinitions = new ArrayList<>();
 	
 	private Similarity() {
     }
@@ -19,7 +23,7 @@ public class Similarity {
 		return result;
 	}
 	
-	private static float getConcordance(Model model1, Model model2) {
+	private static double getConcordance(Model model1, Model model2) {
 		
 		Model union = model1.union(model2);
 		Model intersection = model1.intersection(model2);
@@ -27,28 +31,32 @@ public class Similarity {
 		StmtIterator iter1 = union.listStatements();
 		StmtIterator iter2 = intersection.listStatements();
 		
-		float cardinalUnion = Similarity.getNumberTripls(iter1);
-		float cardinalIntersection = Similarity.getNumberTripls(iter2);
+		double cardinalUnion = Similarity.getNumberTripls(iter1);
+		double cardinalIntersection = Similarity.getNumberTripls(iter2);
 		
 		return cardinalIntersection/cardinalUnion;
 	}
 
-	public static float[][] getMatrixSimilarity(List<Model> models){
+	public static double[][] getMatrixSimilarity(List<Model> models){
 		int n = models.size();
-		float[][] result = new float[n][n];
+		double[][] result = new double[n][n];
 
 		for(int i = 0; i < models.size(); i++) {
 			for(int j = 0; j < models.size(); j++) {
-				if(i == j) {
-					result[i][j] = 1;
-				}
-				else {
-					result[i][j] = Similarity.getConcordance(models.get(i), models.get(j));
-				}
+				result[i][j] = Similarity.getConcordance(models.get(i), models.get(j));
 			}
 		}
 
 		return result;
 	}
-
+	
+	public static List<Model> getListModelDefinitions()
+	{
+		return Similarity.listModelsDefinitions;
+	}
+	
+	public static void setModelToListModelDefinitions(Model m)
+	{
+		Similarity.listModelsDefinitions.add(m);
+	}
 }

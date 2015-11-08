@@ -18,26 +18,15 @@ import org.apache.jena.rdf.model.Model;
 public class Service {
 
     public static void main(String [] args) {
-        long tStart = System.currentTimeMillis();
-
-        identifyConcepts("Metal", "YAHOO", 5, 0);
-
-        long tStop = System.currentTimeMillis();
-
-        System.out.println((tStop - tStart) + " ms.");
+        
     }
 
-    public static List<Snippet> identifyConcepts(String query, String searchEngine, int numberOfResults, double similarity) {
+    public static Snippet identifyConcepts(String query, String searchEngine, double similarity, String url) {
         List<String> urls = new ArrayList<String>();
         Map<String, String> textsMap = new HashMap<String,String>();
-        int currentNumberOfResults = 0;
 
-        
-        for(int i = 0; i < 10 && currentNumberOfResults != numberOfResults; i++) {
-            urls = SearchEngine.search(searchEngine, query, numberOfResults);
-            textsMap = Extractor.extract(urls);
-            currentNumberOfResults = textsMap.size();
-        }
+        urls.add(url);
+        textsMap = Extractor.extract(urls);
 
         List<String> titles = new ArrayList<>(textsMap.keySet());
         List<String> texts = new ArrayList<>(textsMap.values());
@@ -68,11 +57,12 @@ public class Service {
         List<Model> unifiedModels = GraphUnifier.unifyAllModels(modelsList);
         
         int i = 0;
+        List<Concept> listConcept = new ArrayList<>();
         for(Model m : unifiedModels)
         {
         	System.out.println("=======================================");
         	
-        	List<Concept> listConcept = ExtractInformation.extractInformations(m, sortedShorterUrisList.get(i));
+        	listConcept = ExtractInformation.extractInformations(m, sortedShorterUrisList.get(i));
         	
         	System.out.println(urls.get(i));
         	
@@ -86,26 +76,54 @@ public class Service {
         	i++;
         }
         
-        int n = unifiedModels.size();
-        float[][] similarityMatrix = new float[n][n];
-        similarityMatrix = Similarity.getMatrixSimilarity(unifiedModels);
-        for(int j =0; j<n; j++)
-        {
-        	for(int k =0; k<n;k++)
-        	{
-        		System.out.print(similarityMatrix[j][k]+" ");
-        	}
-        	System.out.print("\n");
-        }
         
 
         List<Snippet> snippets = new ArrayList<>();
-
+        double seuilSimilarite = similarity;
         for(int e = 0; e < titles.size(); e++) {
-            String title = titles.get(e);
+            
+        	Concept mainConcept = listConcept.remove(0);
+        	
+        	Snippet snippet = new Snippet(titles.get(e), mainConcept, listConcept);
+        	
+        	snippets.add(snippet);
+        	
+        	List<Concept> listDef = Snippet.getListDefinitions();
+        	
+        	if(listDef.size() == 0)
+        	{
+        		Snippet.addDefinition(mainConcept);
+        	}
+        	else
+        	{
+        		List<Model> modelsExistants = Similarity.getListModelDefinitions();
+        		int n = unifiedModels.size() + modelsExistants.size();
+    	        double[][] similarityMatrix = new double[n][n];
+    	        similarityMatrix = Similarity.getMatrixSimilarity(unifiedModels);
+    	        boolean toAdd = true;
+    	        for(int v =0; v<modelsExistants.size(); v++)
+    	        {
+    	        	if(similarityMatrix[v][modelsExistants.size()] < seuilSimilarite)
+    	        	{
+    	        		toAdd = false;
+    	        		break;
+    	        	}
+    	        }
+    	        if(toAdd)
+    	        {
+    	        	Snippet.addDefinition(mainConcept);
+    	        }
+        	}
+            
             //snippets.add(new Snippet(title));
         }
-        return snippets;
+        return snippets.get(0);
+    }
+    
+    public static List<String> getUrls(String query, String searchEngine, int numberOfResults)
+    {
+    	List<String> result = SearchEngine.search(searchEngine, query, numberOfResults);
+    	return result;
     }
 }
 

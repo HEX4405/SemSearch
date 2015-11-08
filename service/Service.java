@@ -21,7 +21,7 @@ public class Service {
         
     }
 
-    public static Snippet identifyConcepts(String query, String searchEngine, double similarity, String url) {
+    public static Snippet identifyConcepts(double similarity, String url) {
         List<String> urls = new ArrayList<String>();
         Map<String, String> textsMap = new HashMap<String,String>();
 

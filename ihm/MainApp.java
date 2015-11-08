@@ -1,14 +1,19 @@
 package ihm;
 
 import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import java.awt.BorderLayout;
 import javax.swing.JMenu;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollBar;
 import javax.swing.JSeparator;
@@ -17,6 +22,8 @@ import javax.swing.JTextArea;
 import javax.swing.JSlider;
 import javax.swing.border.BevelBorder;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -25,6 +32,7 @@ import modele.Concept;
 import modele.Snippet;
 
 import service.Service;
+import test.SnippetGetter;
 
 public class MainApp {
 
@@ -61,6 +69,7 @@ public class MainApp {
 		listDefinitions = new ArrayList<>();
 		textAreas = new ArrayList<>();
 		initialize();
+		SnippetGetter.setMainApp(this);
 	}
 
 	/**
@@ -108,10 +117,8 @@ public class MainApp {
 				
 				for(String url : urls)
 				{
-					Snippet snippet = Service.identifyConcepts("Metal", "YAHOO", 0.08,url);
-					listSnippets.add(snippet);
-					addANewSnippetToPanel(snippet);
-					listDefinitions = Snippet.getListDefinitions();
+					SnippetGetter thread = new SnippetGetter(url, 0.08);
+					thread.launch();
 				}
 		        
 		        long tStop = System.currentTimeMillis();
@@ -132,40 +139,41 @@ public class MainApp {
 		slider.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel.add(slider);
 		
-		JScrollBar scrollBar = new JScrollBar();
-		frame.getContentPane().add(scrollBar, BorderLayout.EAST);
-		
 		JPanel panel_1 = new JPanel();
 		frame.getContentPane().add(panel_1, BorderLayout.CENTER);
-		this.snippetsPanel = panel_1;
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(false);
-		this.textAreas.add(textArea);
-		
-
-		panel_1.add(textArea);
+		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		
+		JScrollBar scrollBar = new JScrollBar();
+		scrollBar.setOrientation(JScrollBar.HORIZONTAL);
+		panel_1.add(scrollBar, BorderLayout.SOUTH);
 		
+		JScrollBar scrollBar_1 = new JScrollBar();
+		panel_1.add(scrollBar_1, BorderLayout.EAST);
+		
+		JPanel panel_2 = new JPanel();
+		panel_1.add(panel_2, BorderLayout.CENTER);
+		this.snippetsPanel = panel_2;
+			
 		
 	}
 	
-	private void addANewSnippetToPanel(Snippet snippet)
+	public void addANewSnippetToPanel(Snippet snippet)
 	{
-		if(this.listSnippets.size()==1)
-		{
-			this.textAreas.get(0).setText(snippet.getTitle());
-		}
-		else
-		{
-			JSeparator separator = new JSeparator();
-			this.snippetsPanel.add(separator);
-			JTextArea textArea = new JTextArea();
-			textArea.setEditable(false);
-			this.textAreas.add(textArea);
-			textArea.setText(snippet.getTitle());
-		}
+		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
+		this.textAreas.add(textArea);
+		this.snippetsPanel.add(textArea);
+		
+        
+        //JLabel label = new JLabel(new ImageIcon(snippet.getMainConcept().getImage()));
+		
+		
+		JSeparator separator = new JSeparator();
+		this.snippetsPanel.add(separator);
+		//this.snippetsPanel.add(label);
+		
+		textArea.setText(snippet.getTitle());
 	}
 	
 

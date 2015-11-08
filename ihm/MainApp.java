@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.imageio.ImageIO;
+import javax.swing.AbstractButton;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -32,6 +33,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
@@ -50,6 +52,7 @@ public class MainApp {
 	private JTextField numberResults;
 	private List<JTextArea> textAreas;
 	private JPanel snippetsPanel;
+	private ButtonGroup buttonGroup;
 	
 	private List<Snippet> listSnippets;
 	private List<Concept> listDefinitions;
@@ -97,10 +100,12 @@ public class MainApp {
 		panel.add(numberResults);
 		numberResults.setColumns(2);
 		
-		JRadioButton Google = new JRadioButton("Yahoo");
+		JRadioButton Google = new JRadioButton("Google");
+		
 		panel.add(Google);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Google");
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Yahoo");
+		rdbtnNewRadioButton_1.setSelected(true);
 		panel.add(rdbtnNewRadioButton_1);
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Bing");
@@ -110,6 +115,7 @@ public class MainApp {
 		group.add(Google);
 		group.add(rdbtnNewRadioButton);
 		group.add(rdbtnNewRadioButton_1);
+		this.buttonGroup = group;
 		
 		txtSearch = new JTextField();
 		txtSearch.setText("Search...");
@@ -122,9 +128,20 @@ public class MainApp {
 			public void actionPerformed(ActionEvent arg0) {
 				//snippetsPanel.removeAll();
 				//snippetsPanel.repaint();
+				String query = txtSearch.getText();
+		        
+		        String searchEngine = "";
+		        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+		            AbstractButton button = buttons.nextElement();
+		            if (button.isSelected()) {
+		                searchEngine = button.getText();
+		            }
+		        }
+		        //double seuil = sldSimilarite.getValue()/100.0
+				
 				long tStart = System.currentTimeMillis();
 				
-				List<String> urls = Service.getUrls("Metal", "YAHOO", 3);
+				List<String> urls = Service.getUrls(query, searchEngine, 3);
 				
 				for(String url : urls)
 				{

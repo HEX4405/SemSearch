@@ -20,8 +20,9 @@ public class Concept {
     public Concept(String title, String description, String imageLink) {
         this.title = title;
         this.description = description;
+        this.imageLink = imageLink;
         this.image = null;
-        try {
+        /*try {
         	this.imageLink = Concept.getFinalURL(imageLink);
         	this.imageLink = URLDecoder.decode(this.getImageLink());
         	System.out.println("LOOOL"+" "+this.imageLink);
@@ -29,7 +30,7 @@ public class Concept {
             image = ImageIO.read(url.openStream());
         } catch (IOException e) {
         	e.printStackTrace();
-        }
+        }*/
     }
 
     public String getTitle() {

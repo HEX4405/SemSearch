@@ -46,15 +46,17 @@ import test.SnippetGetter;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.Icon;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class MainApp {
 
 	private JFrame frame;
 	private JTextField txtSearch;
-	private JTextField numberResults;
 	private List<JTextArea> textAreas;
 	private JPanel snippetsPanel;
 	private ButtonGroup buttonGroup;
+	private JComboBox comboBox;
 	
 	private List<Snippet> listSnippets;
 	private List<Concept> listDefinitions;
@@ -101,9 +103,11 @@ public class MainApp {
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 		
-		numberResults = new JTextField();
-		panel.add(numberResults);
-		numberResults.setColumns(2);
+		String[] listP = new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "20"};
+		final JComboBox comboBox = new JComboBox(listP);
+		
+		this.comboBox = comboBox;
+		panel.add(comboBox);
 		
 		JRadioButton Google = new JRadioButton("Google");
 		
@@ -133,7 +137,10 @@ public class MainApp {
 			public void actionPerformed(ActionEvent arg0) {
 				snippetsPanel.removeAll();
 				snippetsPanel.repaint();
+				listAssociatedConcepts.clear();
+				
 				String query = txtSearch.getText();
+				int nbResults = Integer.parseInt((String)comboBox.getSelectedItem()); // Since you need int use this better
 		        
 		        String searchEngine = "";
 		        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
@@ -146,7 +153,7 @@ public class MainApp {
 				
 				long tStart = System.currentTimeMillis();
 				
-				List<String> urls = Service.getUrls(query, searchEngine, 10);
+				List<String> urls = Service.getUrls(query, searchEngine, nbResults);
 				
 				for(String url : urls)
 				{
@@ -162,15 +169,6 @@ public class MainApp {
 		});
 		
 		panel.add(btnGo);
-		
-		
-		JSlider slider = new JSlider();
-		slider.setSnapToTicks(true);
-		slider.setPaintTicks(true);
-		slider.setMinorTickSpacing(1);
-		slider.setMaximum(1);
-		slider.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel.add(slider);
 		
 		JPanel panel_1 = new JPanel();
 		frame.getContentPane().add(panel_1, BorderLayout.CENTER);
@@ -272,7 +270,6 @@ public class MainApp {
 		panelConcepts.setLayout(new BoxLayout(panelConcepts, BoxLayout.X_AXIS));
 		
 		
-		listAssociatedConcepts.clear();
 		listAssociatedConcepts.addAll(listConceptAssocies);
 		
 		
@@ -289,13 +286,13 @@ public class MainApp {
 			{
 				image_concept = image_concept.getScaledInstance(100, 100, Image.SCALE_FAST);
 				Icon image_concept2 = new ImageIcon(image_concept);
-				
+				lblImg1.setName(c.getImageLink());
 				lblImg1.setIcon(image_concept2);
 			}
 			lblImg1.setHorizontalAlignment(SwingConstants.CENTER);
 			panel_for_concept.add(lblImg1, BorderLayout.NORTH);
 			
-			JLabel lblTitle1 = new JLabel("Titre");
+			JLabel lblTitle1 = new JLabel();
 			lblTitle1.setBackground(new Color(245, 255, 250));
 			lblTitle1.setForeground(new Color(0, 0, 0));
 			lblTitle1.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -311,15 +308,17 @@ public class MainApp {
 	            	
 	            	Concept rightConcept = null;
 	            	for(Concept concept : listAssociatedConcepts) {
-	            		if(source.getIcon().toString() == concept.getImageLink()) {
+	            		if(source.getName().equals(concept.getImageLink())) {
 	            			rightConcept = concept;
 	            		}
 	            	}
 	            	if(rightConcept != null) {
-	            		new PopupFrame(rightConcept.getTitle(), rightConcept.getImageLink(), rightConcept.getDescription());
+	            		PopupFrame frame = new PopupFrame(rightConcept);
+	            		frame.setVisible(true);
 	            	}
 	            	else {
-	            		new PopupFrame("Erreur !", "", "Impossible de trouver le concept associé...");
+	            		PopupFrame frame = new PopupFrame(rightConcept);
+	            		frame.setVisible(true);
 	            	}
 	            }
 	            public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -338,10 +337,12 @@ public class MainApp {
 	            		}
 	            	}
 	            	if(rightConcept != null) {
-	            		new PopupFrame(rightConcept.getTitle(), rightConcept.getImageLink(), rightConcept.getDescription());
+	            		PopupFrame frame = new PopupFrame(rightConcept);
+	            		frame.setVisible(true);
 	            	}
 	            	else {
-	            		new PopupFrame("Erreur !", "", "Impossible de trouver le concept associé...");
+	            		PopupFrame frame = new PopupFrame(rightConcept);
+	            		frame.setVisible(true);
 	            	}
 	            }
 	            public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -349,7 +350,6 @@ public class MainApp {
 	            }
 	        });
 		}
-		
 		
 		
 		JSeparator separator = new JSeparator();

@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 
 import javax.swing.JMenu;
 import javax.swing.JPanel;
@@ -44,6 +45,7 @@ import service.Service;
 import test.SnippetGetter;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.Icon;
 
 public class MainApp {
 
@@ -56,6 +58,8 @@ public class MainApp {
 	
 	private List<Snippet> listSnippets;
 	private List<Concept> listDefinitions;
+	private List<Concept> listAssociatedConcepts;
+
 
 	/**
 	 * Launch the application.
@@ -79,6 +83,7 @@ public class MainApp {
 	public MainApp() {
 		listSnippets = new ArrayList<>();
 		listDefinitions = new ArrayList<>();
+		listAssociatedConcepts = new ArrayList<>();
 		textAreas = new ArrayList<>();
 		initialize();
 		SnippetGetter.setMainApp(this);
@@ -212,11 +217,13 @@ public class MainApp {
 		panelMainConcept.add(panelMainImg, BorderLayout.WEST);
 		
 		JLabel lblMainImg = new JLabel();
-		if(snippet.getMainConcept().getImage() != null)
+		Image image = snippet.getMainConcept().getImage();
+		if(image != null)
 		{
-			ImageIcon image = new ImageIcon(snippet.getMainConcept().getImage());
-			lblMainImg.setIcon(image);
-			lblMainImg.setSize(20, 30);
+			image = image.getScaledInstance(100, 100, Image.SCALE_FAST);
+			Icon image2 = new ImageIcon(image);
+			
+			lblMainImg.setIcon(image2);
 		}
 		
 		panelMainImg.add(lblMainImg);
@@ -261,6 +268,8 @@ public class MainApp {
 	
 		
 		List<Concept> listConceptAssocies = snippet.getAssociatedConcepts();
+		listAssociatedConcepts.clear();
+		listAssociatedConcepts.addAll(listConceptAssocies);
 		
 		
 		for(Concept c : listConceptAssocies)
@@ -270,9 +279,16 @@ public class MainApp {
 			panel_for_concept.setBackground(new Color(60, 179, 113));
 			panel_for_concept.setLayout(new BorderLayout(0, 0));
 			
-			JLabel lblImg1 = new JLabel("");
-			lblImg1.setHorizontalAlignment(SwingConstants.CENTER);
-			
+			JLabel lblImg1 = new JLabel();
+			Image image_concept = c.getImage();
+			if(image_concept != null)
+			{
+				image_concept = image_concept.getScaledInstance(40, 40, Image.SCALE_FAST);
+				Icon image_concept2 = new ImageIcon(image_concept);
+				
+				lblImg1.setIcon(image_concept2);
+			}
+			lblImg1.setHorizontalAlignment(JLabel.CENTER);
 			panel_for_concept.add(lblImg1, BorderLayout.NORTH);
 			
 			JLabel lblTitle1 = new JLabel("Titre");
@@ -284,6 +300,50 @@ public class MainApp {
 			panel_for_concept.add(lblTitle1, BorderLayout.CENTER);
 			
 			panelConcepts.add(panel_for_concept);
+			
+			lblImg1.addMouseListener(new java.awt.event.MouseAdapter() {
+	            public void mouseClicked(java.awt.event.MouseEvent evt) {
+	            	JLabel source = (JLabel)evt.getSource();
+	            	
+	            	Concept rightConcept = null;
+	            	for(Concept concept : listAssociatedConcepts) {
+	            		if(source.getIcon().toString() == concept.getImageLink()) {
+	            			rightConcept = concept;
+	            		}
+	            	}
+	            	if(rightConcept != null) {
+	            		new PopupFrame(rightConcept.getTitle(), rightConcept.getImageLink(), rightConcept.getDescription());
+	            	}
+	            	else {
+	            		new PopupFrame("Erreur !", "", "Impossible de trouver le concept associé...");
+	            	}
+	            }
+	            public void mouseEntered(java.awt.event.MouseEvent evt) {
+	            	((JLabel)evt.getSource()).setCursor(new Cursor(Cursor.HAND_CURSOR));
+	            }
+	        });
+			
+			lblTitle1.addMouseListener(new java.awt.event.MouseAdapter() {
+	            public void mouseClicked(java.awt.event.MouseEvent evt) {
+	            	JLabel source = (JLabel)evt.getSource();
+	            	
+	            	Concept rightConcept = null;
+	            	for(Concept concept : listAssociatedConcepts) {
+	            		if(source.getText() == concept.getTitle()) {
+	            			rightConcept = concept;
+	            		}
+	            	}
+	            	if(rightConcept != null) {
+	            		new PopupFrame(rightConcept.getTitle(), rightConcept.getImageLink(), rightConcept.getDescription());
+	            	}
+	            	else {
+	            		new PopupFrame("Erreur !", "", "Impossible de trouver le concept associé...");
+	            	}
+	            }
+	            public void mouseEntered(java.awt.event.MouseEvent evt) {
+	            	((JLabel)evt.getSource()).setCursor(new Cursor(Cursor.HAND_CURSOR));
+	            }
+	        });
 		}
 		
 		

@@ -220,7 +220,7 @@ public class MainApp {
 		Image image = snippet.getMainConcept().getImage();
 		if(image != null)
 		{
-			image = image.getScaledInstance(100, 100, Image.SCALE_FAST);
+			image = image.getScaledInstance(300, 300, Image.SCALE_FAST);
 			Icon image2 = new ImageIcon(image);
 			
 			lblMainImg.setIcon(image2);
@@ -246,6 +246,14 @@ public class MainApp {
 		txtMainDescription.setText(snippet.getMainConcept().getDescription());
 		panelMainContent.add(txtMainDescription, BorderLayout.CENTER);
 		
+		List<Concept> listConceptAssocies = snippet.getAssociatedConcepts();
+		if(listConceptAssocies.size()==0)
+		{
+			JSeparator separator = new JSeparator();
+			this.snippetsPanel.add(separator);
+			return;
+		}
+		
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(new Color(245, 255, 250));
 		panelContent.add(panel_6, BorderLayout.CENTER);
@@ -264,10 +272,6 @@ public class MainApp {
 		panelConcepts.setLayout(new BoxLayout(panelConcepts, BoxLayout.X_AXIS));
 		
 		
-		
-	
-		
-		List<Concept> listConceptAssocies = snippet.getAssociatedConcepts();
 		listAssociatedConcepts.clear();
 		listAssociatedConcepts.addAll(listConceptAssocies);
 		
@@ -276,19 +280,19 @@ public class MainApp {
 		{
 			JPanel panel_for_concept = new JPanel();
 			
-			panel_for_concept.setBackground(new Color(60, 179, 113));
+			panel_for_concept.setBackground(new Color(60, 100, 113));
 			panel_for_concept.setLayout(new BorderLayout(0, 0));
 			
 			JLabel lblImg1 = new JLabel();
 			Image image_concept = c.getImage();
 			if(image_concept != null)
 			{
-				image_concept = image_concept.getScaledInstance(40, 40, Image.SCALE_FAST);
+				image_concept = image_concept.getScaledInstance(100, 100, Image.SCALE_FAST);
 				Icon image_concept2 = new ImageIcon(image_concept);
 				
 				lblImg1.setIcon(image_concept2);
 			}
-			lblImg1.setHorizontalAlignment(JLabel.CENTER);
+			lblImg1.setHorizontalAlignment(SwingConstants.CENTER);
 			panel_for_concept.add(lblImg1, BorderLayout.NORTH);
 			
 			JLabel lblTitle1 = new JLabel("Titre");

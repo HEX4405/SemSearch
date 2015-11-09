@@ -81,7 +81,10 @@ public class Service {
         List<Snippet> snippets = new ArrayList<>();
         double seuilSimilarite = similarity;
         for(int e = 0; e < titles.size(); e++) {
-            
+            if(listConcept.size() == 0)
+            {
+            	return null;
+            }
         	Concept mainConcept = listConcept.remove(0);
         	
         	Snippet snippet = new Snippet(titles.get(e), mainConcept, listConcept);

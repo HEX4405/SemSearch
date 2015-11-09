@@ -22,15 +22,14 @@ public class Concept {
         this.description = description;
         this.imageLink = imageLink;
         this.image = null;
-        /*try {
+        try {
         	this.imageLink = Concept.getFinalURL(imageLink);
         	this.imageLink = URLDecoder.decode(this.getImageLink());
-        	System.out.println("LOOOL"+" "+this.imageLink);
             URL url = new URL(this.imageLink);
             image = ImageIO.read(url.openStream());
         } catch (IOException e) {
-        	e.printStackTrace();
-        }*/
+        	System.err.println("[IMAGE NOT FOUND]"+e.getMessage());
+        }
     }
 
     public String getTitle() {

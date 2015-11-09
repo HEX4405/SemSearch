@@ -211,7 +211,13 @@ public class MainApp {
 		panelMainImg.setBackground(Color.WHITE);
 		panelMainConcept.add(panelMainImg, BorderLayout.WEST);
 		
-		JLabel lblMainImg = new JLabel("");
+		JLabel lblMainImg = new JLabel();
+		if(snippet.getMainConcept().getImage() != null)
+		{
+			ImageIcon image = new ImageIcon(snippet.getMainConcept().getImage());
+			lblMainImg.setIcon(image);
+			lblMainImg.setSize(20, 30);
+		}
 		
 		panelMainImg.add(lblMainImg);
 		

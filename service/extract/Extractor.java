@@ -37,36 +37,53 @@ public class Extractor {
 
     }
 
-    public static Map<String, String> extract(List<String> urls) throws FileNotFoundException, IOException, XPathExpressionException, SAXException, ParserConfigurationException {
+    public static Map<String, String> extract(List<String> urls) {
         Map<String, String> textsMap = new HashMap<>();
 
         for(String url : urls) {
         	// Create an AlchemyAPI object.
-            AlchemyAPI alchemyObj = AlchemyAPI.GetInstanceFromFile("api_key.txt");
-
-            // Extract page text from a web URL. (ignoring ads, navigation links,
-            // and other content).
-            Document doc = alchemyObj.URLGetText(url);
-           String text = getStringFromDocument(doc);
-           DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-           DocumentBuilder builder = factory.newDocumentBuilder();
-           Document document = builder.parse(new InputSource(new StringReader(text)));
-           NodeList textNodeList = document.getElementsByTagName("text");
-           Node nodeText = textNodeList.item(0);
-           text = nodeText.getTextContent();
-
-
-            // Extract a title from a web URL.
-            doc = alchemyObj.URLGetTitle(url);
-            String title = getStringFromDocument(doc);
-            DocumentBuilderFactory factoryTitle = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builderTitle = factoryTitle.newDocumentBuilder();
-            Document documentTitle = builderTitle.parse(new InputSource(new StringReader(title)));
-            NodeList titleNodeList = documentTitle.getElementsByTagName("title");
-            Node nodeTextTitle = titleNodeList.item(0);
-            title = nodeTextTitle.getTextContent();
-            
-            textsMap.put(title, text);
+        	String text = "";
+        	String title = "";
+        	try
+        	{
+	            AlchemyAPI alchemyObj = AlchemyAPI.GetInstanceFromFile("api_key.txt");
+	
+	            // Extract page text from a web URL. (ignoring ads, navigation links,
+	            // and other content).
+	            Document doc = alchemyObj.URLGetText(url);
+	           text = getStringFromDocument(doc);
+	           DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	           DocumentBuilder builder = factory.newDocumentBuilder();
+	           Document document = builder.parse(new InputSource(new StringReader(text)));
+	           NodeList textNodeList = document.getElementsByTagName("text");
+	           Node nodeText = textNodeList.item(0);
+	           text = nodeText.getTextContent();
+        	}
+	         catch(Exception e)
+	       	{
+	       		System.out.println("[EXTRACTOR] "+e.getMessage());
+	       		
+	       	}
+        	try
+        	{
+	            // Extract a title from a web URL.
+        		AlchemyAPI alchemyObj = AlchemyAPI.GetInstanceFromFile("api_key.txt");
+	            Document doc = alchemyObj.URLGetTitle(url);
+	            title = getStringFromDocument(doc);
+	            DocumentBuilderFactory factoryTitle = DocumentBuilderFactory.newInstance();
+	            DocumentBuilder builderTitle = factoryTitle.newDocumentBuilder();
+	            Document documentTitle = builderTitle.parse(new InputSource(new StringReader(title)));
+	            NodeList titleNodeList = documentTitle.getElementsByTagName("title");
+	            Node nodeTextTitle = titleNodeList.item(0);
+	            title = nodeTextTitle.getTextContent();
+	            
+	            
+        	}
+        	catch(Exception e)
+        	{
+        		System.out.println("[EXTRACTOR] "+e.getMessage());
+        	}
+        	textsMap.put(title, text);
 
         }
 

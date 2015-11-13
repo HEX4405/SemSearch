@@ -42,6 +42,7 @@ import modele.Concept;
 import modele.Snippet;
 
 import service.Service;
+import thread.DefinitionsGetter;
 import thread.SnippetGetter;
 
 import javax.swing.GroupLayout;
@@ -56,6 +57,7 @@ public class MainApp {
 	private JTextField txtSearch;
 	private List<JTextArea> textAreas;
 	private JPanel snippetsPanel;
+	private JPanel definitionsPanel;
 	private ButtonGroup buttonGroup;
 	private JComboBox comboBox;
 	
@@ -63,6 +65,7 @@ public class MainApp {
 	private List<Concept> listDefinitions;
 	private List<Concept> listAssociatedConcepts;
 	private List<SnippetGetter> listThreads;
+	private DefinitionsGetter threadDefs;
 
 
 	/**
@@ -88,10 +91,12 @@ public class MainApp {
 		listSnippets = new ArrayList<>();
 		listThreads = new ArrayList<>();
 		listDefinitions = new ArrayList<>();
+		threadDefs = null;
 		listAssociatedConcepts = new ArrayList<>();
 		textAreas = new ArrayList<>();
 		initialize();
 		SnippetGetter.setMainApp(this);
+		DefinitionsGetter.setMainApp(this);
 	}
 
 	/**
@@ -142,6 +147,10 @@ public class MainApp {
 		JButton btnGo = new JButton("Go !");
 		btnGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(threadDefs != null)
+				{
+					threadDefs.stop();
+				}
 				for(SnippetGetter sg : listThreads)
 		        {
 		        	sg.stop();
@@ -169,6 +178,10 @@ public class MainApp {
 				
 				List<String> urls = Service.getUrls(query, searchEngine, nbResults);
 				
+				
+				DefinitionsGetter threadDefinitions= new DefinitionsGetter(urls);
+				threadDefs = threadDefinitions;
+				threadDefinitions.launch();
 				for(String url : urls)
 				{
 					SnippetGetter thread = new SnippetGetter(url, 0.08);
@@ -190,6 +203,17 @@ public class MainApp {
 		panel_1.setLayout(new BorderLayout(0, 0));
 		this.snippetsPanel = panel_1;
 		
+		JPanel panel_def = new JPanel();
+		this.definitionsPanel = panel_def;
+		
+		
+		JScrollPane scrollerDef = new JScrollPane(panel_def);
+		panel_def.setLayout(new BorderLayout(0, 0));
+		panel_1.add(scrollerDef, BorderLayout.NORTH);
+		
+		JSeparator separator = new JSeparator();
+		panel_1.add(separator, BorderLayout.SOUTH);
+		
 		
 		JPanel panel_2 = new JPanel();
 		this.snippetsPanel = panel_2;
@@ -200,6 +224,38 @@ public class MainApp {
 		
 			
 		
+	}
+	
+	public void updateDefinitionPanel(List<Concept> concepts)
+	{	for(Concept c : concepts)
+		{
+			JPanel panel = new JPanel();
+			panel.setBackground(new Color(60, 100, 113));
+			panel.setLayout(new BorderLayout(0, 0));
+			
+			
+			JLabel lblImg1 = new JLabel();
+			Image image_concept = c.getImage();
+			if(image_concept != null)
+			{
+				image_concept = image_concept.getScaledInstance(100, 100, Image.SCALE_FAST);
+				Icon image_concept2 = new ImageIcon(image_concept);
+				lblImg1.setName(c.getImageLink());
+				lblImg1.setIcon(image_concept2);
+			}
+			lblImg1.setHorizontalAlignment(SwingConstants.CENTER);
+			panel.add(lblImg1, BorderLayout.CENTER);
+			
+			JLabel lblTitle1 = new JLabel();
+			lblTitle1.setBackground(new Color(145, 255, 110));
+			lblTitle1.setForeground(new Color(0, 0, 0));
+			lblTitle1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			lblTitle1.setText(c.getTitle());
+			lblTitle1.setHorizontalAlignment(SwingConstants.CENTER);
+			panel.add(lblTitle1, BorderLayout.SOUTH);
+			
+			this.definitionsPanel.add(panel);
+		}
 	}
 	
 	public void addANewSnippetToPanel(Snippet snippet)

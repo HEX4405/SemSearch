@@ -33,24 +33,9 @@ public class Service {
         Map<String, String> textsMap = new HashMap<String,String>();
 
         urls.add(url);
-        try {
-			textsMap = Extractor.extract(urls);
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			System.out.println("[EXTRACTOR] "+e1.getMessage());
-		} catch (XPathExpressionException e1) {
-			// TODO Auto-generated catch block
-			System.out.println("[EXTRACTOR] "+e1.getMessage());
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			System.out.println("[EXTRACTOR] "+e1.getMessage());;
-		} catch (SAXException e1) {
-			// TODO Auto-generated catch block
-			System.out.println("[EXTRACTOR] "+e1.getMessage());;
-		} catch (ParserConfigurationException e1) {
-			// TODO Auto-generated catch block
-			System.out.println("[EXTRACTOR] "+e1.getMessage());;
-		}
+        
+		textsMap = Extractor.extract(urls);
+		
 
         List<String> titles = new ArrayList<>(textsMap.keySet());
         List<String> texts = new ArrayList<>(textsMap.values());
@@ -63,7 +48,7 @@ public class Service {
         List<List<String>> sortedShorterUrisList = new ArrayList<>();
         for(List<String> i : sortedUrisList)
         {
-        	System.out.println("=======================================");
+        	//System.out.println("=======================================");
         	if(i.size() > 5)
         	{
         		i = i.subList(0, 5);
@@ -72,7 +57,7 @@ public class Service {
         	
         	for(String j : i)
         	{
-        		System.out.println(j);
+        		//System.out.println(j);
         	}
         }
         List<List<Model>> modelsList = RDFGraphGenerator.generateAllRDF(sortedUrisList);
@@ -84,18 +69,18 @@ public class Service {
         List<Concept> listConcept = new ArrayList<>();
         for(Model m : unifiedModels)
         {
-        	System.out.println("=======================================");
+        	//System.out.println("=======================================");
         	
         	listConcept = ExtractInformation.extractInformations(m, sortedShorterUrisList.get(i));
         	
-        	System.out.println(urls.get(i));
+        	//System.out.println(urls.get(i));
         	
         	for(Concept c : listConcept)
         	{
         		
-        		System.out.println(c.getTitle());
-        		System.out.println(c.getDescription());
-        		System.out.println(c.getImageLink());
+        		//System.out.println(c.getTitle());
+        		//System.out.println(c.getDescription());
+        		//System.out.println(c.getImageLink());
         	}
         	i++;
         }
@@ -158,6 +143,44 @@ public class Service {
     {
     	List<String> result = SearchEngine.search(searchEngine, query, numberOfResults);
     	return result;
+    }
+    
+    public static List<Concept> getListDefinitions(List<String> urls)
+    {
+    	List<Concept> result = new ArrayList<>();
+    	
+    	Map<String, String> textsMap = new HashMap<String,String>();
+    	
+
+        
+			textsMap = Extractor.extract(urls);
+		
+        
+        List<String> texts = new ArrayList<>(textsMap.values());
+        List<String> uris = new ArrayList<>();
+        for(String text :texts)
+        {
+        	List<String> temp = URIFinder.find(text, 0);
+        	uris.addAll(temp);
+        }
+        List<String> sortedUrisList = FrequencySorter.process(uris);
+        if(sortedUrisList.size() != 0)
+        {
+        	Model m = RDFGraphGenerator.generateRDFDefinitions(sortedUrisList.get(0));
+        	if(m != null)
+        	{
+        		result = ExtractInformation.getListDefinitionFromModel(m);
+        	}
+        	else
+        	{
+        		List<String> urisTemp = new ArrayList<>();
+        		urisTemp.add(sortedUrisList.get(0));
+        		result.add(ExtractInformation.extractInformations(m, sortedUrisList).get(0));
+        	}
+        }
+        
+        
+        return result;
     }
 }
 

@@ -67,6 +67,66 @@ public class RDFGraphGenerator {
 		
 		return models;
 	}
+	
+	public static Model generateRDFDefinitions(String uri)
+	{
+		Model result = ModelFactory.createDefaultModel();
+		
+		String queryString = "select distinct ?resource ?property from <http://dbpedia.org> where { { ?resource ?property <"+ uri +"> . FILTER(STRSTARTS(STR(?property), \"http://dbpedia.org/ontology/\")) } }  ";
+		Query query = QueryFactory.create(queryString);
+		QueryExecution qexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
+		try {
+			ResultSet results = qexec.execSelect();
+			if(results.hasNext())
+			{
+				
+				String tmp = "";
+				while(results.hasNext())
+				{
+					QuerySolution sol =results.nextSolution();
+					String p = sol.get("property").toString();
+					if(sol.get("property").toString().equals("http://dbpedia.org/ontology/wikiPageDisambiguates"))
+					{
+						tmp= sol.get("resource").toString();
+						result.createResource(tmp);
+					}
+				}
+				String uri2 = tmp;
+				if(uri2 != "")
+				{
+					String queryString2 = "select distinct ?property ?value from <http://dbpedia.org> where {{ <"+ uri2 +"> ?property ?value . FILTER(STRSTARTS(STR(?property), \"http://dbpedia.org/ontology/\")) } }  ";
+					Query query2 = QueryFactory.create(queryString2);
+					QueryExecution qexec2 = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query2);
+					try {
+						ResultSet results2 = qexec2.execSelect();
+						while(results2.hasNext()) {
+							QuerySolution sol2 = results2.nextSolution();
+							result.getResource(uri2).addProperty(result.createProperty(sol2.getResource("property").toString()), sol2.get("value"));
+						}
+					} finally {
+						qexec.close();
+					}
+				}
+				else
+				{
+					return null;
+				}
+			}
+			
+		}
+		catch(Exception e)
+		{
+			//System.out.println("[RDFGraphGenerator] "+ e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+		finally
+		{
+			qexec.close();
+		}
+		
+		return result;
+	}
 
 	public static List<List<Model>> generateAllRDF(List<List<String>> urisList) {
 		List<List<Model>> modelsList = new ArrayList<>();
@@ -78,10 +138,30 @@ public class RDFGraphGenerator {
 		return modelsList;
 	}
 	
-	/*public static void main(String [] args)
+	public static void main(String [] args)
 	{
-		List<String> uris = new ArrayList<String>();
-		uris.add("http://dbpedia.org/resource/Barack_Obama");
-		RDFGraphGenerator.generateRDF(uris);
-	}*/
+		String uri="http://dbpedia.org/resource/Doge";
+		Model m = RDFGraphGenerator.generateRDFDefinitions(uri);
+		
+		StmtIterator iter = m.listStatements();
+
+		// affiche l'objet, le prédicat et le sujet de chaque déclaration
+		while (iter.hasNext()) {
+		    Statement stmt      = iter.nextStatement();  // obtenir la prochaine déclaration
+		    Resource  subject   = stmt.getSubject();     // obtenir le sujet
+		    Property  predicate = stmt.getPredicate();   // obtenir le prédicat
+		    RDFNode   object    = stmt.getObject();      // obtenir l'objet
+
+		    System.out.print(subject.toString());
+		    System.out.print(" " + predicate.toString() + " ");
+		    if (object instanceof Resource) {
+		       System.out.print(object.toString());
+		    } else {
+		        // l'objet est un littéral
+		        System.out.print(" \"" + object.toString() + "\"");
+		    }
+
+		    System.out.println(" .");
+		}
+	}
 }

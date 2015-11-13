@@ -18,6 +18,7 @@ import org.apache.jena.sparql.vocabulary.FOAF;
 import org.apache.jena.vocabulary.RDFS;
 
 import modele.Concept;
+import service.sparql.RDFGraphGenerator;
 
 public class ExtractInformation {
 	
@@ -96,6 +97,42 @@ public class ExtractInformation {
 			result = "";
 		}
 		
+		return result;
+	}
+	
+	public static List<Concept> getListDefinitionFromModel(Model m)
+	{
+		List<Concept> result = new ArrayList<>();
+		List<String> ambiguousUris = ExtractInformation.getListAmbiguousUris(m);
+		List<Model> listModels = RDFGraphGenerator.generateRDF(ambiguousUris);
+		for(int i = 0; i<ambiguousUris.size(); i++)
+		{
+			String title = ExtractInformation.getName(listModels.get(i), ambiguousUris.get(i));
+			String comment = ExtractInformation.getComment(listModels.get(i), ambiguousUris.get(i));
+			String imageLink = ExtractInformation.getImageLink(listModels.get(i), ambiguousUris.get(i));
+			
+			Concept concept = new Concept(title, comment, imageLink);
+			result.add(concept);
+			
+		}
+		
+		return result;
+		
+	}
+	
+	private static List<String> getListAmbiguousUris(Model m)
+	{
+		List<String> result = new ArrayList<>();
+		StmtIterator iter = m.listStatements();
+		
+		while(iter.hasNext())
+		{
+			Statement stmt = iter.nextStatement();
+			if(stmt.getPredicate().toString().equals("http://dbpedia.org/ontology/wikiPageDisambiguates"))
+			{
+				result.add(stmt.getObject().toString());
+			}
+		}
 		return result;
 	}
 

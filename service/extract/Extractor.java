@@ -1,13 +1,35 @@
 package service.extract;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPathExpressionException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import com.alchemyapi.api.AlchemyAPI;
 
 public class Extractor {
 
@@ -15,27 +37,57 @@ public class Extractor {
 
     }
 
-    public static Map<String, String> extract(List<String> urls) {
+    public static Map<String, String> extract(List<String> urls) throws FileNotFoundException, IOException, XPathExpressionException, SAXException, ParserConfigurationException {
         Map<String, String> textsMap = new HashMap<>();
 
         for(String url : urls) {
-            try {
-                Document doc = Jsoup.connect(url)
-                        .userAgent("Mozilla")
-                        .followRedirects(true)
-                        .timeout(0)
-                        .get();
+        	// Create an AlchemyAPI object.
+            AlchemyAPI alchemyObj = AlchemyAPI.GetInstanceFromFile("api_key.txt");
 
-                String title = doc.select("title").text();
-                String text = doc.select("p").text();
-                if(!text.isEmpty()) {
-                    textsMap.put(title, text);
-                }
-            } catch(IOException e) {
-                System.err.println("[EXTRACTOR] " + e.getMessage());
-            }
+            // Extract page text from a web URL. (ignoring ads, navigation links,
+            // and other content).
+            Document doc = alchemyObj.URLGetText(url);
+           String text = getStringFromDocument(doc);
+           DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+           DocumentBuilder builder = factory.newDocumentBuilder();
+           Document document = builder.parse(new InputSource(new StringReader(text)));
+           NodeList textNodeList = document.getElementsByTagName("text");
+           Node nodeText = textNodeList.item(0);
+           text = nodeText.getTextContent();
+
+
+            // Extract a title from a web URL.
+            doc = alchemyObj.URLGetTitle(url);
+            String title = getStringFromDocument(doc);
+            DocumentBuilderFactory factoryTitle = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builderTitle = factoryTitle.newDocumentBuilder();
+            Document documentTitle = builderTitle.parse(new InputSource(new StringReader(title)));
+            NodeList titleNodeList = documentTitle.getElementsByTagName("title");
+            Node nodeTextTitle = titleNodeList.item(0);
+            title = nodeTextTitle.getTextContent();
+            
+            textsMap.put(title, text);
+
         }
 
         return textsMap;
     }
+   
+        // utility method
+        private static String getStringFromDocument(Document doc) {
+            try {
+                DOMSource domSource = new DOMSource(doc);
+                StringWriter writer = new StringWriter();
+                StreamResult result = new StreamResult(writer);
+
+                TransformerFactory tf = TransformerFactory.newInstance();
+                Transformer transformer = tf.newTransformer();
+                transformer.transform(domSource, result);
+
+                return writer.toString();
+            } catch (TransformerException ex) {
+                ex.printStackTrace();
+                return null;
+            }
+        }
 }

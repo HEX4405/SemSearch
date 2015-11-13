@@ -3,6 +3,8 @@ package service;
 import modele.Concept;
 import modele.Snippet;
 import org.apache.jena.rdf.model.Model;
+import org.xml.sax.SAXException;
+
 import service.extract.Extractor;
 import service.finder.URIFinder;
 import service.frequency.FrequencySorter;
@@ -11,7 +13,12 @@ import service.search.SearchEngine;
 import service.similarity.Similarity;
 import service.sparql.RDFGraphGenerator;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
 
 import org.apache.jena.rdf.model.Model;
 
@@ -26,7 +33,24 @@ public class Service {
         Map<String, String> textsMap = new HashMap<String,String>();
 
         urls.add(url);
-        textsMap = Extractor.extract(urls);
+        try {
+			textsMap = Extractor.extract(urls);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (XPathExpressionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SAXException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ParserConfigurationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
         List<String> titles = new ArrayList<>(textsMap.keySet());
         List<String> texts = new ArrayList<>(textsMap.values());

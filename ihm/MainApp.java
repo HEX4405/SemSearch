@@ -42,7 +42,8 @@ import modele.Concept;
 import modele.Snippet;
 
 import service.Service;
-import test.SnippetGetter;
+import thread.SnippetGetter;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.Icon;
@@ -61,6 +62,7 @@ public class MainApp {
 	private List<Snippet> listSnippets;
 	private List<Concept> listDefinitions;
 	private List<Concept> listAssociatedConcepts;
+	private List<SnippetGetter> listThreads;
 
 
 	/**
@@ -84,6 +86,7 @@ public class MainApp {
 	 */
 	public MainApp() {
 		listSnippets = new ArrayList<>();
+		listThreads = new ArrayList<>();
 		listDefinitions = new ArrayList<>();
 		listAssociatedConcepts = new ArrayList<>();
 		textAreas = new ArrayList<>();
@@ -96,6 +99,7 @@ public class MainApp {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("TurboMegaSearch");
 		frame.setBounds(100, 100, 847, 480);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -104,6 +108,9 @@ public class MainApp {
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 		
 		String[] listP = new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "20"};
+		
+		JLabel lblNombreResultats = new JLabel("Nombre Resultats");
+		panel.add(lblNombreResultats);
 		final JComboBox comboBox = new JComboBox(listP);
 		
 		this.comboBox = comboBox;
@@ -135,6 +142,12 @@ public class MainApp {
 		JButton btnGo = new JButton("Go !");
 		btnGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				for(SnippetGetter sg : listThreads)
+		        {
+		        	sg.stop();
+		   
+		        }
+				
 				snippetsPanel.removeAll();
 				snippetsPanel.repaint();
 				listAssociatedConcepts.clear();
@@ -149,6 +162,7 @@ public class MainApp {
 		                searchEngine = button.getText();
 		            }
 		        }
+		       
 		        //double seuil = sldSimilarite.getValue()/100.0
 				
 				long tStart = System.currentTimeMillis();
@@ -158,6 +172,7 @@ public class MainApp {
 				for(String url : urls)
 				{
 					SnippetGetter thread = new SnippetGetter(url, 0.08);
+					listThreads.add(thread);
 					thread.launch();
 				}
 		        

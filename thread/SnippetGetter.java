@@ -1,4 +1,4 @@
-package test;
+package thread;
 
 import ihm.MainApp;
 import modele.Snippet;
@@ -21,6 +21,12 @@ public class SnippetGetter implements Runnable {
 	public void launch()
 	{
 		this.thread.start();
+	}
+	
+	public void stop()
+	{
+		this.thread.interrupt();
+		this.thread.stop();
 	}
 	
 	public static void setMainApp(MainApp mainApp)

@@ -37,19 +37,19 @@ public class Service {
 			textsMap = Extractor.extract(urls);
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.out.println("[EXTRACTOR] "+e1.getMessage());
 		} catch (XPathExpressionException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.out.println("[EXTRACTOR] "+e1.getMessage());
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.out.println("[EXTRACTOR] "+e1.getMessage());;
 		} catch (SAXException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.out.println("[EXTRACTOR] "+e1.getMessage());;
 		} catch (ParserConfigurationException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.out.println("[EXTRACTOR] "+e1.getMessage());;
 		}
 
         List<String> titles = new ArrayList<>(textsMap.keySet());
